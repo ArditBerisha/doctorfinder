@@ -69,6 +69,8 @@ public class AttributesController {
 		model.addAttribute("userDetails", currentUser().getUsersDetail());
 
 		return "admin/attributes/attribute-form";
+		
+		//hahahahah
 	}
 	
 	@PostMapping("/save")
