@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin/adminlayout}">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Oda Mjekeve</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script th:src="@{/js/admin.js}"></script>
+
+</head>
+<body>
+<body>
+
+	<div layout:fragment="content">
+		<div
+			th:replace="shared/admin/_navbar :: nav(photoPath=${userPhoto.photoPath})"></div>
+
+
+		<div class="header bg-primary pb-6">
+			<div
+				th:replace="shared/admin/_header :: header(homelink='doctor/languages',root='Gjuhet',root2='shtoGjuhen')"></div>
+		</div>
+		<div class="container-fluid mt--6">
+			<div class="col-xl-12 order-xl-1">
+				<div class="card">
+					<div class="card-header">
+						<div class="row align-items-center">
+							<div class="col-8">
+								<h3 class="mb-0">Shto Gjuhet</h3>
+							</div>
+						</div>
+					</div>
+					<div class="card-body">
+						<div id="alert" class="alert alert-warning alert-dismissible fade show"
+							role="alert" style="display:none">
+							<span class="alert-icon"><i class="ni ni-like-2"></i></span> <span
+								class="alert-text"><strong>Warning!</strong> Ju lutem zgjedhni nje gjuhe!</span>
+							<button type="button" class="close" data-dismiss="alert"
+								aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+
+						
+						<form th:action="@{/doctor/save}" method="POST">
+
+							<div class="pl-lg-4">
+
+
+								<div class="row">
+									<div class="col-lg-6">
+										<div class="form-group">
+											<label class="form-control-label">Shto rolin</label> <select
+												aria-controls="example" id="langCode" name="langCode"
+												class="custom-select custom-select-sm form-control form-control-sm">
+												<option value="0" selected="selected">--Zgjedh
+													gjuhen--</option>
+
+												<option th:object="${langCode}"
+													th:each="code : ${userDetails}"
+													th:value="${code.languageCode}" th:text="${code.language}"></option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<hr class="my-4">
+								<!--<div class="row">
+			                    <div class="col-lg-6">
+			                      <div class="form-group">
+			                        <label class="form-control-label" for="datepicker">Data Skadimit</label>
+			                        <input type="date" th:field="*{dataSkadimit}" id="input-last-name" class="form-control" placeholder="Data Skadimit" pattern="yyyy-MM-dd">
+			                      </div>
+			                    </div>
+			                  </div>  -->
+
+							</div>
+							<button type="submit" id="sub" class="btn btn-info col-2">Save</button>
+						</form>
+						<hr class="my-4">
+						<div class="modal fade" id="deleteModalAuth" tabindex="-1"
+							role="dialog" aria-labelledby="exampleModalLabel"
+							aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Modal
+											title</h5>
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">Deshironi ta fshieni gjuhen?</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary"
+											data-dismiss="modal">Close</button>
+										<a href="" class="btn btn-primary" id="delRefAuth">Confirm</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<ul class="list-group">
+							<li class="list-group-item active">GJUHET</li>
+							<li th:each="tempLang : ${userLang}" class="list-group-item">[[${tempLang.language}]]
+								<a class="delBtn"
+								th:href="@{/doctor/delete/language(userId=${user.id},langCode=${tempLang.languageCode})}">
+									<span class="closebtn float-right"
+									onchange="this.parentElement.style.display='none'">&times;</span>
+							</a>
+							</li>
+						</ul>
+						<!--<hr class="my-4">-->
+						<!--<a type="button" class="float-left btn btn-primary"
+							th:href="@{/admin/perdoruesit/list}">Kthehu tek lista e
+							perdoruesve</a>-->
+					</div>
+				</div>
+			</div>
+			<hr class="my-4">
+		</div>
+	</div>
+
+</body>
+
+</html>

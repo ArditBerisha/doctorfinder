@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description"
+	content="Start your development with a Dashboard for Bootstrap 4.">
+<meta name="author" content="Creative Tim">
+<title>Argon Dashboard - Free Dashboard for Bootstrap 4</title>
+<style th:replace="@{/shared/admin/_style}"></style>
+
+</head>
+
+
+<body>
+
+	<nav class="sidenav navbar navbar-vertical  fixed-left  navbar-expand-xs navbar-light bg-white" id="sidenav-main" sec:authorize="hasRole('ROLE_MANAGER') or hasRole('ROLE_ADMIN')">
+		<div th:replace="~{shared/admin/_left-side-bar :: leftSideBar}"></div>
+	</nav>
+
+	<div class="main-content" id="panel">
+
+		<!--<div th:replace="~{shared/admin/_navbar :: nav}"></div>-->
+		
+		<!--<div class="header bg-primary pb-6">
+			<div th:replace="~{shared/admin/_header :: header}"></div>
+		</div>-->
+		
+		<div layout:fragment="content"></div>
+		
+		<!-- FOOTER -->
+		<!-- <div th:insert="~{shared/admin/_footer :: footer}"></div>-->
+
+	</div>
+	
+	<script th:replace="@{/shared/admin/_script}"></script>
+
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+<title>Medilab Bootstrap Template - Index</title>
+<meta content="" name="descriptison">
+<meta content="" name="keywords">
+
+<style th:replace="@{/shared/user/_style}"></style>
+<style th:replace="@{/shared/admin/_style}"></style>
+
+</head>
+
+
+<body>
+
+
+	
+	<div sec:authorize="isAuthenticated()">
+		<div th:replace="shared/admin/_navbar :: nav(photoPath=${userDetails.photoPath})"></div>
+	</div>
+	
+	<div th:replace="~{shared/user/_header :: header}"></div>
+	
+	<!--<div th:replace="~{shared/user/_section :: section}"></div>-->
+
+
+
+	<div class="main-content" id="panel">
+
+		<div layout:fragment="content"></div>
+
+	</div>
+	
+	
+	<div th:replace="~{shared/user/_footer :: footer}"></div>
+	
+	<script th:replace="@{/shared/user/_script}"></script>
+
+</body>
+</html>

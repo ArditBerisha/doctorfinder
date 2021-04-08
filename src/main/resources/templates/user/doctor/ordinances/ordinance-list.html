@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{admin/adminlayout}">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Control Type</title>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script th:src="@{/js/admin.js}"></script>
+</head>
+<body>
+
+
+	<div layout:fragment="content">
+		<div th:replace="shared/admin/_navbar :: nav(photoPath=${userDetails.photoPath})"></div>
+		<div class="header bg-primary pb-6">
+
+			<div
+				th:replace="shared/admin/_header :: header(homelink='admin/ordinances/list' ,root='Ordinanca',root2='list')"></div>
+		</div>
+		<div class="container-fluid mt--6">
+
+			<div class="row">
+				<div class="col">
+					<div class="card">
+						<!-- Card header -->
+						<div class="card-header border-0">
+							<h3 class="float-left mb-0">Ordinancat</h3>
+							<a type="button" id="test" class="float-right btn btn-primary"
+								th:href="@{/admin/ordinances/showFormForAdd}"> Shto
+								Ordinancen </a>
+							<div class="modal fade" id="exampleModal" tabindex="-1"
+								role="dialog" aria-labelledby="exampleModalLabel"
+								aria-hidden="true">
+								<div class="modal-dialog modal-dialog-centered" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="exampleModalLabel">Modal
+												title</h5>
+											<button type="button" class="close" data-dismiss="modal"
+												aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="modal-body">...</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary"
+												data-dismiss="modal">Close</button>
+											<button type="button" class="btn btn-primary">Save
+												changes</button>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- Light table -->
+						<div class="table-responsive">
+
+							<table data-page-list="[10, 25, 50, 100, all]"
+								class="table align-items-center table-flush">
+
+								<thead class="thead-light">
+									<tr>
+										<th scope="col" class="sort" data-sort="budget"><a
+											th:href="@{/admin/ordinances/list/page(pageNo=${currentPage}, pageSize=${pageSize}, sortField='id', sortDir=${reverseSortDir})}">
+												ID</a> <i onclick="myFunction(this)"> <a
+												th:href="@{/admin/ordinances/list/page(pageNo=${currentPage}, pageSize=${pageSize}, sortField='id', sortDir=${reverseSortDir})}"
+												class="fas fa-sort float-right"></a>
+										</i></th>
+										<th scope="col" class="sort" data-sort="budget"><a
+											th:href="@{/admin/ordinances/list/page(pageNo=${currentPage}, pageSize=${pageSize}, sortField='name', sortDir=${reverseSortDir})}">
+												Emri</a> <i onclick="myFunction(this)"> <a
+												th:href="@{/admin/ordinances/list/page(pageNo=${currentPage}, pageSize=${pageSize}, sortField='name', sortDir=${reverseSortDir})}"
+												class="fas fa-sort float-right"></a>
+										</i></th>
+										
+										<th scope="col" class="sort" data-sort="budget">
+											
+												Adresat <i onclick="myFunction(this)"> 
+										</i></th>
+										<th scope="col">Aksionet</th>
+									</tr>
+								</thead>
+
+
+
+								<tbody class="list">
+									<tr th:each="ordinance : ${ordinanceList}">
+										<td th:text="${ordinance.id}" />
+										<td th:text="${ordinance.name}" />
+										<td> <a type="button" id="test" class="float-right btn btn-primary"
+												th:href="@{/admin/address/list(ordId=${ordinance.id})}">Adresat</a>
+										<td class="text-right">
+											<!-- Modal -->
+											<div class="modal fade" id="deleteModal" tabindex="-1"
+												role="dialog" aria-labelledby="exampleModalLabel"
+												aria-hidden="true">
+												<div class="modal-dialog modal-dialog-centered"
+													role="document">
+													<div class="modal-content">
+														<div class="modal-header">
+															<h5 class="modal-title" id="exampleModalLabel">Modal
+																title</h5>
+															<button type="button" class="close" data-dismiss="modal"
+																aria-label="Close">
+																<span aria-hidden="true">&times;</span>
+															</button>
+														</div>
+														<div class="modal-body">Deshironi ta fshieni
+															perdoruesin</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-secondary"
+																data-dismiss="modal">Close</button>
+															<a href="" class="btn btn-primary" id="delRef">Confirm</a>
+														</div>
+													</div>
+												</div>
+											</div>
+
+											<div class="dropdown">
+												<a class="btn btn-sm btn-icon-only text-light" href="#"
+													role="button" data-toggle="dropdown" aria-haspopup="true"
+													aria-expanded="false"> <i class="fas fa-ellipsis-v"></i>
+												</a>
+												<div
+													class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+													
+													<a class="dropdown-item"
+														th:href="@{/admin/ordinances/showFormForUpdate(ordinanceId=${ordinance.id})}">Update</a>
+													<a class="dropdown-item" id="delBtn"
+														th:href="@{/admin/ordinances/delete(ordinanceId=${ordinance.id})}">Delete</a>
+												</div>
+											</div>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+							<input type="hidden" id="hidden" />
+						</div>
+						<!-- Card footer -->
+
+						<div class="card-footer py-4">
+							<div th:if="${totalPages > 0}">
+								<div class="float-left">
+									<ul class="pagination justify-content-end mb-0">
+										<!--<li class="nav-item float-left page-item disabled"><p
+												class="small">Total Rows:[[${totalItems}]]</p></li>	-->
+										<li class="page-item"><select th:field="*{pageSize}"
+											aria-controls="example" id="pageSiz"
+											class="custom-select custom-select-sm form-control form-control-sm">
+												<option th:value="nothing" selected="selected">Select
+													page size</option>
+												<option
+													th:value="@{/admin/ordinances/list/page(pageNo=${currentPage}, pageSize='5', sortField=${sortField}, sortDir=${sortDir})}">5</option>
+												<option
+													th:value="@{/admin/ordinances/list/page(pageNo=${currentPage}, pageSize='10', sortField=${sortField}, sortDir=${sortDir})}">10</option>
+												<option
+													th:value="@{/admin/ordinances/list/page(pageNo=${currentPage}, pageSize='25', sortField=${sortField}, sortDir=${sortDir})}">25</option>
+												<option
+													th:value="@{/admin/ordinances/list/page(pageNo=${currentPage}, pageSize='50', sortField=${sortField}, sortDir=${sortDir})}">50</option>
+												<option
+													th:value="@{/admin/ordinances/list/page(pageNo=${currentPage}, pageSize='100', sortField=${sortField}, sortDir=${sortDir})}">100</option>
+										</select></li>
+									</ul>
+								</div>
+
+								<div class="float-right">
+									<ul class="pagination justify-content-end mb-0">
+
+										<li class="page-item"><a th:if="${currentPage > 1}"
+											class="page-link"
+											th:href="@{/admin/ordinances/list/page(pageNo=${currentPage - 1}, pageSize=${pageSize}, sortField=${sortField}, sortDir=${sortDir})}">
+												<i class="fas fa-angle-left"></i>
+										</a> <a th:unless="${currentPage > 1}" class="page-link"> <i
+												class="fas fa-angle-left"></i>
+										</a></li>
+										<li class="page-item"
+											th:each="i: ${#numbers.sequence(1, totalPages)}"
+											th:classappend="${(currentPage != i) ? 'active' : ''}">
+											<a class="page-link" th:if="${currentPage != i}"
+											th:href="@{/admin/ordinances/list/page(pageNo=${i}, pageSize=${pageSize}, sortField=${sortField}, sortDir=${sortDir})}">[[${i}]]</a>
+											<span th:unless="${currentPage != i}">[[${i}]]</span>
+										</li>
+										<li class="page-item"><a
+											th:if="${currentPage < totalPages}" class="page-link"
+											th:href="@{/admin/ordinances/list/page(pageNo=${currentPage + 1}, pageSize=${pageSize}, sortField=${sortField}, sortDir=${sortDir})}">
+												<i class="fas fa-angle-right"></i>
+										</a> <a th:unless="${currentPage < totalPages}" class="page-link">
+												<i class="fas fa-angle-right"></i>
+										</a></li>
+
+									</ul>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

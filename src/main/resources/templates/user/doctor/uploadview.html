@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<div class="container-fluid mt--6">
+
+		<div class="row">
+			<div class="col">
+				<div class="card">
+					<!-- Card header -->
+					<div class="card-header border-0">
+						<h3 class="float-left mb-0">Rolet</h3>
+						<!--<a type="button" id="test" class="float-right btn btn-primary"
+								th:href="@{/admin/perdoruesit/showFormForAdd}"> Shto
+								Perdoruesin </a>-->
+						<div class="modal fade" id="exampleModal" tabindex="-1"
+							role="dialog" aria-labelledby="exampleModalLabel"
+							aria-hidden="true">
+							<div class="modal-dialog modal-dialog-centered" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Modal
+											title</h5>
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">...</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary"
+											data-dismiss="modal">Close</button>
+										<button type="button" class="btn btn-primary">Save
+											changes</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- Light table -->
+					<div class="table-responsive">
+
+						<table data-page-list="[10, 25, 50, 100, all]"
+							class="table align-items-center table-flush">
+							<thead class="thead-light">
+								<tr>
+
+
+									<th scope="row" class="sort" data-sort="budget" >
+											Authority</th>
+								</tr>
+							</thead>
+
+							<tbody class="list">
+								<tr th:each="tempUD : ${uD}">
+									<td> <img alt="" th:src="*{'data:image/jpeg;base64,'+{tempUD.photoPath}}" style="width: 100px; height:100px;">
+
+								</tr>
+							</tbody>
+						</table>
+						<input type="hidden" id="hidden" />
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
+

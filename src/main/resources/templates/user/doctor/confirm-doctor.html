@@ -1,0 +1,370 @@
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<style th:replace="@{/shared/admin/_style}"></style>
+<style th:replace="@{/shared/user/_style}"></style>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<script
+	src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+<link th:href="@{/styles/css/style.css}" rel="stylesheet">
+<!--<script type="text/javascript" th:src="@{/js/progressbar.js}"></script>-->
+</head>
+<body>
+
+
+	<div th:replace="~{shared/user/_topbar :: topbar}"></div>
+
+	<div th:replace="~{shared/user/_header :: header}"></div>
+
+	<section id="hero" class="d-flex align-items-center">
+		<div class="container">
+			<h1>Calim your profile</h1>
+		</div>
+	</section>
+	<div class="modal fade" id="deleteModalAuth" tabindex="-1"
+		role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">Deshironi ta fshieni rolin?</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Close</button>
+					<a href="" class="btn btn-primary" id="delRefAuth">Confirm</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="container-fluid mt--6">
+		<div class="d-flex justify-content-center">
+
+			<div class="col-xl-10 order-xl-1">
+				<div class="card">
+					<div class="card-header">
+
+
+						<div class="row align-items-center">
+							<div class="col-8">
+								<h3 class="mb-0">Confirm profile</h3>
+							</div>
+
+						</div>
+					</div>
+					<div class="card-body">
+
+
+						<form id="msform" th:object="${confirmDoctorDTO}" th:action="@{/doctor/processConfirmation}"  method="post" novalidate enctype="multipart/form-data">
+
+							<!-- progressbar -->
+							<ul id="progressbar">
+								<li class="active" id="account"><strong>Account</strong></li>
+								<li id="personal"><strong>Personal</strong></li>
+								<li id="payment"><strong>Image</strong></li>
+								<li id="confirm"><strong>Finish</strong></li>
+							</ul>
+							<div class="progress">
+								<div
+									class="progress-bar progress-bar-striped progress-bar-animated"
+									role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
+							<br>
+							<!-- fieldsets -->
+							<fieldset class="msformm">
+								<div class="pl-lg-4">
+									<div class="row">
+										<div class="col-lg-6">
+											<div class="form-group">
+												<label class="form-control-label" for="input-first-name">First
+													name</label> <input type="text" th:field="*{firstName}" id="input-first-name"
+													class="form-control" placeholder="First name">
+											</div>
+										</div>
+										<div class="col-lg-6">
+											<div class="form-group">
+												<label class="form-control-label" for="input-last-name">Last
+													name</label> <input type="text" th:field="*{lastName}" id="input-last-name"
+													class="form-control" placeholder="Last name">
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-lg-6">
+											<div class="form-group">
+												<label class="form-control-label" for="input-username">Username</label>
+												<input type="text" th:field="*{username}" id="input-username"  class="form-control"
+													placeholder="Username">
+											</div>
+										</div>
+										<div class="col-lg-6">
+											<div class="form-group">
+												<label class="form-control-label" for="input-email">Email
+													address</label> <input type="email" th:field="*{email}" id="input-email"
+													class="form-control" placeholder="abc@example.com">
+											</div>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="col-lg-6">
+											<div class="form-group">
+												<label class="form-control-label" for="input-username">Password</label>
+												<input type="text" id="input-username" th:field="*{password}" class="form-control"
+													placeholder="Password">
+											</div>
+										</div>
+										<div class="col-lg-6">
+											<div class="form-group">
+												<label class="form-control-label" for="input-email">Confirm
+													new password </label> <input type="email" th:field="*{confirmPassword}" id="input-email"
+													class="form-control" placeholder="Confirm new password">
+											</div>
+										</div>
+									</div>
+
+								</div>
+								<input type="button" name="next" class="next action-button"
+									value="Next" />
+							</fieldset>
+							<fieldset class="msformm">
+								<div class="pl-lg-4">
+									<div class="row">
+										<div class="col-lg-6">
+											<div class="form-group">
+												<label class="form-control-label" for="input-username">Nr.
+													Identifikues</label> <input type="text" th:field="*{nrIdentifikues}" id="nrIdentifikues"
+													class="form-control" placeholder="1234/5678-9123">
+											</div>
+										</div>
+										<div class="col-lg-6">
+											<div class="form-group">
+												<label class="form-control-label" for="input-email">Nr.
+													Anetarit</label> <input type="email" th:field="*{nrAnetarit}" id="nrAnetarit"
+													class="form-control" placeholder="1234567">
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-lg-6">
+											<div class="form-group">
+												<label class="form-control-label" for="input-first-name">Nr.
+													Licences</label> <input type="text" th:field="*{nrLicences}" id="nrLicences"
+													class="form-control" placeholder="KO-12345-67-89">
+											</div>
+										</div>
+										<div class="col-lg-6">
+											<div class="form-group">
+												<label class="form-control-label" for="input-last-name">Data
+													Skadimit name</label> <input type="text" id="dataSkadimit"
+													class="form-control" placeholder="Data Skadimit">
+											</div>
+										</div>
+									</div>
+								</div>
+								<input type="button" name="next" class="next action-button"
+									value="Next" /> <input type="button" name="previous"
+									class="previous action-button-previous" value="Previous" />
+							</fieldset>
+							<fieldset class="msformm">
+								<div class="pl-lg-4">
+									<div class="row">
+										<div class="col-lg-6">
+											<div class="form-group">
+												
+												<input type="file" name="file" id="customFile" class="form-control">
+												<label class="custom-file-label" for="customFile">Choose file</label>
+											</div>
+										</div>
+									</div>
+								</div>
+								<button type="submit"class="btn btn-primary mt-4">Create
+										account</button> <input type="button" name="previous"
+									class="previous action-button-previous" value="Previous" />
+							</fieldset>
+							<fieldset class="msformm">
+								<div class="form-card">
+									<div class="row">
+										<div class="col-7">
+											<h2 class="fs-title">Finish:</h2>
+										</div>
+										<div class="col-5">
+											<h2 class="steps">Step 4 - 4</h2>
+										</div>
+									</div>
+									<br> <br>
+									<h2 class="purple-text text-center">
+										<strong>SUCCESS !</strong>
+									</h2>
+									<br>
+									<div class="row justify-content-center">
+										<div class="col-3">
+											<img src="https://i.imgur.com/GwStPmg.png" class="fit-image">
+										</div>
+									</div>
+									<br> <br>
+									<div class="row justify-content-center">
+										<div class="col-7 text-center">
+											<h5 class="purple-text text-center">You Have
+												Successfully Signed Up</h5>
+										</div>
+									</div>
+								</div>
+
+							</fieldset>
+						</form>
+					</div>
+					<div class="card-footer"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div th:replace="~{shared/user/_footer :: footer}"></div>
+
+
+	<script th:replace="@{/shared/user/_script}"></script>
+
+	<script>
+		$(document)
+				.ready(
+						function() {
+
+							var current_fs, next_fs, previous_fs; // fieldsets
+							var opacity;
+							var current = 1;
+							var steps = $("fieldset").length;
+
+							//setProgressBar(current);
+
+							$(".next")
+									.click(
+											function() {
+												current_fs = $(this).parent();
+												next_fs = $(this).parent()
+														.next();
+
+												// Add Class Active
+												$("#progressbar li").eq(
+														$("fieldset").index(
+																next_fs))
+														.addClass("active");
+
+												var username = document
+														.getElementById("input-username").value;
+												var result = false;
+
+												var users = '[[${listUsers}]]';
+												var format = users.replace(
+														/&quot;/g, '"');
+												var format2 = format.replace(
+														'[', '');
+												var format3 = format2.replace(
+														']', '');
+												var arr = format3.split(",");
+												var obj;
+												for (var i = 0; i < arr.length; i++) {
+													obj = JSON.parse(arr[i])
+													if (obj.username === username) {
+														result = true;
+													}
+													//console.log(obj.username);
+												}
+console.log(result);
+												if (!result) {
+													// show the next fieldset
+													next_fs.show();
+													// hide the current fieldset with style
+													current_fs
+															.animate(
+																	{
+																		opacity : 0
+																	},
+																	{
+																		step : function(
+																				now) {
+																			// for making fielset appear animation
+																			opacity = 1 - now;
+
+																			current_fs
+																					.css({
+																						'display' : 'none',
+																						'position' : 'relative'
+																					});
+																			next_fs
+																					.css({
+																						'opacity' : opacity
+																					});
+																		},
+																		duration : 500
+																	});
+													setProgressBar(++current);
+												} else {
+													$('#deleteModalAuth')
+															.modal();
+												}
+											});
+
+							$(".previous").click(
+									function() {
+
+										current_fs = $(this).parent();
+										previous_fs = $(this).parent().prev();
+
+										// Remove class active
+										$("#progressbar li")
+												.eq(
+														$("fieldset").index(
+																current_fs))
+												.removeClass("active");
+
+										// show the previous fieldset
+										previous_fs.show();
+
+										// hide the current fieldset with style
+										current_fs.animate({
+											opacity : 0
+										}, {
+											step : function(now) {
+												// for making fielset appear animation
+												opacity = 1 - now;
+
+												current_fs.css({
+													'display' : 'none',
+													'position' : 'relative'
+												});
+												previous_fs.css({
+													'opacity' : opacity
+												});
+											},
+											duration : 500
+										});
+										setProgressBar(--current);
+									});
+
+							function setProgressBar(curStep) {
+								var percent = parseFloat(100 / steps) * curStep;
+								percent = percent.toFixed();
+								$(".progress-bar").css("width", percent + "%")
+							}
+
+							//$(".submit").click(function() {
+							//	return false;
+							//})
+
+						});
+	</script>
+
+</body>
+</html>
