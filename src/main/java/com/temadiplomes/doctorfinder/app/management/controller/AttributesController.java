@@ -70,8 +70,6 @@ public class AttributesController {
 
 		return "admin/attributes/attribute-form";
 		
-		//hahahahah
-		//hihiihihhi
 	}
 	
 	@PostMapping("/save")
