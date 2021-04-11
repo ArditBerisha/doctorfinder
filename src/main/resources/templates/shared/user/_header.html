@@ -18,7 +18,7 @@
 
 				<nav class="nav-menu d-none d-lg-block">
 					<ul>
-						<li class="active"><a href="index.html">Home</a></li>
+						<li class="active"><a th:href="@{/home/}">Home</a></li>
 						<li><a href="#about">Find a doctor</a></li>
 						<li><a href="#services">Services</a></li>
 						<li><a href="#departments">Departments</a></li>
@@ -42,9 +42,19 @@
 					</ul>
 				</nav>
 				<!-- .nav-menu -->
-
-				<a href="#appointment" class="appointment-btn scrollto">Make an
-					Appointment</a>
+				<div sec:authorize="!isAuthenticated()">
+					<a th:href="@{/login/showMyLoginPage}" class="appointment-btn scrollto">Login</a>
+				</div>
+				
+				<!-- ADMIN VIEW -->
+				<div sec:authorize="hasRole('ROLE_ADMIN')">
+					<a th:href="@{/admin/dashboard/}" class="appointment-btn scrollto">Admin View</a>
+				</div>
+				
+				<!-- DOCTOR VIEW -->
+				<div sec:authorize="hasRole('ROLE_MANAGER')">
+					<a th:href="@{/admin/dashboard/}" class="appointment-btn scrollto">Doctor View</a>
+				</div>
 
 			</div>
 		</header>

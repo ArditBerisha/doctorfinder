@@ -35,11 +35,11 @@ public class HomeController {
 
 		if (user != null) {
 			model.addAttribute("userDetails", user.getUsersDetail());
+			model.addAttribute("photoPath", currentUser().getUsersDetail());
 		}
 
 		List<Users> top4Doctors = userService.findTop4Doctors(PageRequest.of(0, 4));
 		model.addAttribute("top4Doctors", top4Doctors);
-		model.addAttribute("photoPath", currentUser().getUsersDetail());
 
 		return "/user/home/home";
 	}

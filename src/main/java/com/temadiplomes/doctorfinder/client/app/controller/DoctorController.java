@@ -1,6 +1,7 @@
 package com.temadiplomes.doctorfinder.client.app.controller;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
@@ -29,6 +31,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.temadiplomes.doctorfinder.dao.AuthoritiesRepository;
 import com.temadiplomes.doctorfinder.dao.LanguageRepository;
 import com.temadiplomes.doctorfinder.entity.Authorities;
 import com.temadiplomes.doctorfinder.entity.Language;
@@ -67,6 +70,12 @@ public class DoctorController {
 	@Autowired
 	private PlatformTransactionManager transactionManager;
 	
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+	
+	@Autowired 
+	private AuthoritiesRepository authorityRepository;
+	
 
 	@PostMapping("/edit/details")
 	public String editoFoton(@ModelAttribute("usersPhoto") UsersPhoto thePhoto, Model model) {
@@ -90,7 +99,7 @@ public class DoctorController {
 		
 		//return "redirect:/admin/perdoruesit/myProfile";
 		
-		return "redirect:/user/myProfile";
+		return "redirect:/home/myProfile";
 	}
 	
 	@PostMapping("/processConfirmation")
@@ -104,8 +113,14 @@ public class DoctorController {
 			user.setLastName(theDoctor.getLastName());
 			user.setEmail(theDoctor.getEmail());
 			user.setUsername(theDoctor.getUsername());
-			user.setPassword(theDoctor.getPassword());
+			user.setPassword(passwordEncoder.encode(theDoctor.getPassword()));
+			user.setEnabled(Status.ACTIVE);
+			user.setAccountNonExpired(true);
+			user.setAccountNonLocked(true);
+			user.setCredentialsNonExpired(true);
 
+			user.setAuthorities(Arrays.asList(authorityRepository.findRoleByAuthority("ROLE_MANAGER")));
+			
 			UsersDetail userDetail = new UsersDetail();
 			String fileName = StringUtils.cleanPath(theDoctor.getFile().getOriginalFilename());
 			if (fileName.contains("..")) {
@@ -144,7 +159,7 @@ public class DoctorController {
 
 		model.addAttribute("uD", uD);
 
-		return "/user/doctor/uploadview";
+		return "redirect:/login/showMyLoginPage";
 	}
 
 	@GetMapping("/img")

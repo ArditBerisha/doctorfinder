@@ -12,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
+import com.temadiplomes.doctorfinder.entity.Authorities;
 import com.temadiplomes.doctorfinder.entity.Users;
 import com.temadiplomes.doctorfinder.security.CustomUserService;
 
@@ -21,7 +22,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 	
     @Autowired
     private CustomUserService userService;
-	private String string;
+	private String authRole;
 	
 	@Override
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
@@ -41,14 +42,17 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 		
 		// forward to home page
 		
-		string = "ROLE_EMPLOYEE";
-		if(theUser.getAuthorities().contains(string)) {
+		authRole = "ROLE_EMPLOYEE";
+		Authorities auth = new Authorities(authRole);
+		/*if(theUser.getAuthorities().contains(auth)) {
 			response.sendRedirect(request.getContextPath() + "/home/");
 		}
 		
 		else {
 			response.sendRedirect(request.getContextPath() + "/admin/dashboard/");
-		}
+		}*/
+		
+		response.sendRedirect(request.getContextPath() + "/home/");
 		
 		
 	}

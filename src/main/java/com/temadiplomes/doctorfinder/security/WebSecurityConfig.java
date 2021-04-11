@@ -14,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
 import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 
 import com.temadiplomes.doctorfinder.security.CustomUserService;
 
@@ -58,6 +59,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 
 		http.authorizeRequests()
+			.antMatchers("/home/**").permitAll()
 		 	.antMatchers("/admin/**").hasAnyRole("MANAGER","ADMIN")
 			.antMatchers("/").hasRole("EMPLOYEE")
 			.antMatchers("/leaders/**").hasRole("MANAGER")
@@ -70,6 +72,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.permitAll()
 			.and()
 			.logout().deleteCookies().permitAll()
+			.and()
+			.formLogin()
+			.loginPage("/home/")
+			.permitAll()
 			.and()
 			.exceptionHandling().accessDeniedPage("/error/403.html");
 		
