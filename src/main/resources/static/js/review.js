@@ -68,9 +68,10 @@ $(document).ready(function(){
 	                },
 	                error: function (response) {
 	                    console.log("error");
+	                    console.log("error");
 	                    console.log(response);
 	                }
-	            });
+	            }); 
 				
 				
 			});

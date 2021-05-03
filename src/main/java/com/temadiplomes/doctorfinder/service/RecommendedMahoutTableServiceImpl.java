@@ -42,7 +42,7 @@ public class RecommendedMahoutTableServiceImpl implements RecommendedMahoutTable
 
 	@Override
 	public void deleteById(int theId) {
-		// TODO Auto-generated method stub
+		System.out.println("sdsd");
 		
 	}
 
