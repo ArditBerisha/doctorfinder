@@ -46,10 +46,8 @@ $(document).ready(function(){
 	    }
 	    responseMessage(msg);
 	    
-	    var obj = {
-	    		id: docId,
-	    		rate: ratingValue
-	    };
+	    var id = docId;
+	    var rate = ratingValue;
 	    
 	    var url = window.location;
 	    
@@ -58,18 +56,17 @@ $(document).ready(function(){
 				event.preventDefault();
 				
 				$.ajax({
-	                type: 'POST',
-	                //contentType : "application/json",
-	                url: "/rating/save",
-	                data: JSON.stringify(obj),
+	                type: 'GET',
+	                contentType : "application/json",
+	                url: "/rating/save?id="+id +"&rate=" + rate,
 	                dataType : 'json',
 	                success: function (response) {
-	                    console.log(response);
+	                	$('#reviewModal').modal('toggle');
+	                	$('#tt').show();
 	                },
 	                error: function (response) {
-	                    console.log("error");
-	                    console.log("error");
-	                    console.log(response);
+	                	$('#reviewModal').modal('toggle');
+	                	$('#tt').show();
 	                }
 	            }); 
 				

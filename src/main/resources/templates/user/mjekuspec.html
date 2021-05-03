@@ -12,6 +12,7 @@
 <title>Oda Mjekeve</title>
 
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <style sec:authorize="isAuthenticated()">
 #header {
 	top: 78px;
@@ -226,81 +227,89 @@
 
 					</div>
 
-					<section id="why-us" class="why-us" th:object="${mjekuSpec}">
-						<div class="container">
-							<input type="hidden" id="docId"  th:value="*{id}" />
-							<div class="row">
-								<div class="modal fade" id="reviewModal" tabindex="-1"
-								role="dialog" aria-labelledby="exampleModalLabel"
-								aria-hidden="true">
-								<div class="modal-dialog modal-dialog-centered" role="document">
-									<div class="modal-content">
-										<div class="modal-header">
-											<h5 class="modal-title" id="exampleModalLabel">Rating</h5>
-											<button type="button" class="close" data-dismiss="modal"
-												aria-label="Close">
-												<span aria-hidden="true">&times;</span>
-											</button>
-										</div>
-										<div class="modal-body">
-											 <div class='success-box'>
-													    <div class='clearfix'></div>
-													    <img alt='tick image' width='32' src='data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeD0iMHB4IiB5PSIwcHgiIHZpZXdCb3g9IjAgMCA0MjYuNjY3IDQyNi42NjciIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDQyNi42NjcgNDI2LjY2NzsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSI1MTJweCIgaGVpZ2h0PSI1MTJweCI+CjxwYXRoIHN0eWxlPSJmaWxsOiM2QUMyNTk7IiBkPSJNMjEzLjMzMywwQzk1LjUxOCwwLDAsOTUuNTE0LDAsMjEzLjMzM3M5NS41MTgsMjEzLjMzMywyMTMuMzMzLDIxMy4zMzMgIGMxMTcuODI4LDAsMjEzLjMzMy05NS41MTQsMjEzLjMzMy0yMTMuMzMzUzMzMS4xNTcsMCwyMTMuMzMzLDB6IE0xNzQuMTk5LDMyMi45MThsLTkzLjkzNS05My45MzFsMzEuMzA5LTMxLjMwOWw2Mi42MjYsNjIuNjIyICBsMTQwLjg5NC0xNDAuODk4bDMxLjMwOSwzMS4zMDlMMTc0LjE5OSwzMjIuOTE4eiIvPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K'/>
-													    <div class='text-message'></div>
-													    <div class='clearfix'></div>
-													  </div>
-										</div>
-										<div class="modal-footer">
-											<button type="button" class="btn btn-secondary"
-												data-dismiss="modal">Close</button>
-											<button type="button" id="reviewButton" class="btn btn-primary">Save
-												changes</button>
-										</div>
-									</div>
-								</div>
-							</div>
-								<div class="col-sm-6 mx-auto align-items-stretch">
-									<div class="icon-boxes d-flex flex-column justify-content-center">
-										<div class="row">
-											<div class="col-xl-12 d-flex align-items-stretch">
-												<div class="icon-box mt-4 mt-xl-0">
-													<i class="bx bx-receipt"></i>
-													<h4>Leave a review</h4>
-													<p>How likely are you to recommend Dr...</p>
-													<section class='rating-widget'>
-													<!-- Rating Stars Box -->
-													  <div class='rating-stars text-center'>
-													    <ul id='stars'>
-													      <li class='star' title='Poor' data-value='1'>
-													        <i class='fa fa-star fa-fw'></i>
-													      </li>
-													      <li class='star' title='Fair' data-value='2'>
-													        <i class='fa fa-star fa-fw'></i>
-													      </li>
-													      <li class='star' title='Good' data-value='3'>
-													        <i class='fa fa-star fa-fw'></i>
-													      </li>
-													      <li class='star' title='Excellent' data-value='4'>
-													        <i class='fa fa-star fa-fw'></i>
-													      </li>
-													      <li class='star' title='WOW!!!' data-value='5'>
-													        <i class='fa fa-star fa-fw'></i>
-													      </li>
-													    </ul>
-													  </div>
-							  
-													 
-													</section>
-												</div>
+					<div sec:authorize="isAuthenticated()">
+						<section id="why-us" class="why-us" th:object="${mjekuSpec}">
+							<div class="container">
+								<input type="hidden" id="docId"  th:value="*{id}" />
+								<div class="row">
+									<div class="modal fade" id="reviewModal" tabindex="-1"
+									role="dialog" aria-labelledby="exampleModalLabel"
+									aria-hidden="true">
+									<div class="modal-dialog modal-dialog-centered" role="document">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title" id="exampleModalLabel">Rating</h5>
+												<button type="button" class="close" data-dismiss="modal"
+													aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
 											</div>
-											
+											<div class="modal-body">
+												 <div class='success-box'>
+														    <div class='clearfix'></div>
+														    <img alt='tick image' width='32' src='data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeD0iMHB4IiB5PSIwcHgiIHZpZXdCb3g9IjAgMCA0MjYuNjY3IDQyNi42NjciIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDQyNi42NjcgNDI2LjY2NzsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSI1MTJweCIgaGVpZ2h0PSI1MTJweCI+CjxwYXRoIHN0eWxlPSJmaWxsOiM2QUMyNTk7IiBkPSJNMjEzLjMzMywwQzk1LjUxOCwwLDAsOTUuNTE0LDAsMjEzLjMzM3M5NS41MTgsMjEzLjMzMywyMTMuMzMzLDIxMy4zMzMgIGMxMTcuODI4LDAsMjEzLjMzMy05NS41MTQsMjEzLjMzMy0yMTMuMzMzUzMzMS4xNTcsMCwyMTMuMzMzLDB6IE0xNzQuMTk5LDMyMi45MThsLTkzLjkzNS05My45MzFsMzEuMzA5LTMxLjMwOWw2Mi42MjYsNjIuNjIyICBsMTQwLjg5NC0xNDAuODk4bDMxLjMwOSwzMS4zMDlMMTc0LjE5OSwzMjIuOTE4eiIvPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K'/>
+														    <div class='text-message'></div>
+														    <div class='clearfix'></div>
+														  </div>
+											</div>
+											<div class="modal-footer">
+												<button type="button" class="btn btn-secondary"
+													data-dismiss="modal">Close</button>
+												<button type="button" id="reviewButton" class="btn btn-primary">Save
+													changes</button>
+											</div>
 										</div>
 									</div>
-									<!-- End .content-->
+								</div>
+									<div class="col-sm-6 mx-auto align-items-stretch">
+										<div class="icon-boxes d-flex flex-column justify-content-center">
+											<div class="row">
+												<div class="col-xl-12 d-flex align-items-stretch">
+													<div class="icon-box mt-4 mt-xl-0">
+														<i class="bx bx-receipt"></i>
+														<h4>Leave a review</h4>
+														<p>How likely are you to recommend Dr...</p>
+														<section class='rating-widget'>
+														<!-- Rating Stars Box -->
+														  <div class='rating-stars text-center'>
+														    <ul id='stars'>
+														      <li class='star' title='Poor' data-value='1'>
+														        <i class='fa fa-star fa-fw'></i>
+														      </li>
+														      <li class='star' title='Fair' data-value='2'>
+														        <i class='fa fa-star fa-fw'></i>
+														      </li>
+														      <li class='star' title='Good' data-value='3'>
+														        <i class='fa fa-star fa-fw'></i>
+														      </li>
+														      <li class='star' title='Excellent' data-value='4'>
+														        <i class='fa fa-star fa-fw'></i>
+														      </li>
+														      <li class='star' title='WOW!!!' data-value='5'>
+														        <i class='fa fa-star fa-fw'></i>
+														      </li>
+														    </ul>
+														  </div>
+								  
+														 
+														</section>
+													</div>
+												</div>
+												
+											</div>
+										</div>
+										<div id="tt" class="alert alert-info alert-dismissible collapse" role="alert">
+										  <strong>Hello!</strong> Ju keni votuar, <strong>Urime.</strong>
+										  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+										    <span aria-hidden="true">&times;</span>
+										  </button>
+										</div>
+										<!-- End .content-->
+									</div>
 								</div>
 							</div>
-						</div>
-					</section>
+						</section>
+					</div>
 					
 					
 					
