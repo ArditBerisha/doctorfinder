@@ -10,6 +10,8 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link th:href="@{/styles/css/style.css}" rel="stylesheet">
 <title>Oda Mjekeve</title>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <style sec:authorize="isAuthenticated()">
 #header {
 	top: 78px;
@@ -21,6 +23,7 @@
 	top: 0px;
 }
 </style>
+<script type="text/javascript" th:src="@{/js/review.js}"></script>
 </head>
 <body>
 
@@ -34,53 +37,29 @@
 
 			<!-- ======= Doctors Section ======= -->
 			<section id="doctors" class="doctors">
-				<div class="container" id="spec-container">
+				<div class="container" id="spec-container" th:object="${mjekuSpec}">
+					<div class="d-flex justify-content-center">
+						<div id="docSpec" class="text-center col-md-4" th:object="${mjekuSpec}">					
+							<img th:src="'data:image/jpeg;base64,' + ${mjekuSpec.getUsersDetail().photoPath}" class="img-thumbnail rounded mx-auto d-block" alt="Responsive image"/>
+						</div>
+						<div class="text-center col-md-4" th:object="${mjekuSpec}">
+							<h1 th:text="Dr. + *{firstName} + ' ' + *{lastName} "></h1>
+							<p>Kardiologe &#9642; Female &#9642; 18</p>
+							<h2></h2>
 
-					<div id="docSpec" class="section-title" th:object="${mjekuSpec}">
-						<h1 th:text="Dr. + *{firstName} + ' ' + *{lastName} "></h1>
-						<p>Kardiologe &#9642; Female &#9642; 18</p>
-						<h2></h2>
-
-						<p>Sharing your experience can connect someone to the care
-							they need.</p>
-						<p>rating</p>
-						<i class="fas fa-check-circle text-green"></i> <span
-							class="nav-link-text">Pranon pacient</span>
-						<hr>
-						<p>Biography Sharing your experience can connect someone to
-							the care they need. Sharing your experience can connect someone
-							to the care they need. Sharing your experience can connect
-							someone to the care they need. Sharing your experience can
-							connect someone to the care they need.</p>
-
-					</div>
-
-					<div class="row">
-
-						<div th:each="test : ${top4Doctors}" class="col-lg-6 mt-4">
-							<div class="member d-flex align-items-start">
-								<div class="pic">
-									<img alt="Image placeholder"
-										th:src="*{'data:image/jpeg;base64,'+ test.getUsersDetail().photoPath}"
-										class="img-fluid">
-								</div>
-								<div class="member-info">
-									<h4 th:text="${test.username}"></h4>
-									<span>Chief Medical Officer</span>
-									<p>Explicabo voluptatem mollitia et repellat qui dolorum
-										quasi</p>
-									<div class="social">
-										<a href=""><i class="ri-twitter-fill"></i></a> <a href=""><i
-											class="ri-facebook-fill"></i></a> <a href=""><i
-											class="ri-instagram-fill"></i></a> <a href=""> <i
-											class="ri-linkedin-box-fill"></i>
-										</a>
-									</div>
-								</div>
-							</div>
+							<p>Sharing your experience can connect someone to the care
+								they need.</p>
+							<p>rating</p>
+							<i class="fas fa-check-circle text-green"></i> <span
+								class="nav-link-text">Pranon pacient</span>
+							<hr>
+							<p>Biography Sharing your experience can connect someone to
+								the care they need. Sharing your experience can connect someone
+								to the care they need. Sharing your experience can connect
+								someone to the care they need. Sharing your experience can
+								connect someone to the care they need.</p>
 						</div>
 					</div>
-
 				</div>
 			</section>
 			<!-- End Doctors Section -->
@@ -102,16 +81,19 @@
 							src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621"
 							frameborder="0" allowfullscreen></iframe>
 					</div>
-					<div id="docSpec" class="section-title" th:object="${mjekuSpec}">
-						<h1 th:text="Dr. + *{firstName} + ' ' + *{lastName} "></h1>
-						<p>Kardiologe &#9642; Female &#9642; 18</p>
+					<ul>
+					
+					</ul>
+					
+					<div th:each="ordinance : ${mjekuSpec.getOrdinances()}" class="section-title">
+						<h3 th:text="${ordinance.name}"></h3>
+						
 						<h2></h2>
-
-						<p>Sharing your experience can connect someone to the care
-							they need.</p>
-						<p>rating</p>
-						<i class="fas fa-check-circle text-green"></i> <span
-							class="nav-link-text">Pranon pacient</span>
+						
+						<div th:each="address : ${ordinance.getAddress()}" class="section-title">
+							<h4 th:text="${address.state} + ' ' +  ${address.city} + ',' + ${address.address1} + ',' + ${address.postalCode}"></h4>
+						</div>
+						
 						<hr>
 
 					</div>
@@ -127,28 +109,47 @@
 
 					<div class="section-title">
 						<h2>About Me</h2>
-						<h1>Biography</h1>
-						<p>Magnam dolores commodi suscipit. Necessitatibus eius
-							consequatur ex aliquid fuga eum quidem. Sit sint consectetur
-							velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit
-							suscipit alias ea. Quia fugiat sit in iste officiis commodi
-							quidem hic quas.</p>
-						<hr>
+						
 
 
 						<div class="faq-list">
 							<ul>
+							
+							<li data-aos="fade-up" data-aos-delay="100"><a
+									data-toggle="collapse" href="#faq-list-7" class="collapsed"><strong style="font-size:25px;">Biography</strong><i
+										class="bx bx-chevron-down icon-show"></i><i
+										class="bx bx-chevron-up icon-close"></i>
+								</a>
+									<div id="faq-list-7" class="collapse" data-parent=".faq-list">										
+										<p th:text="${mjekuSpec.getUsersDetail().biography}" />					
+									</div></li><hr>
+							
 								<li data-aos="fade-up" data-aos-delay="100"><a
 									data-toggle="collapse" href="#faq-list-2" class="collapsed"><strong style="font-size:25px;">Education</strong><i
 										class="bx bx-chevron-down icon-show"></i><i
 										class="bx bx-chevron-up icon-close"></i>
 								</a>
-									<div id="faq-list-2" class="collapse" data-parent=".faq-list">
-										<p>Dolor sit amet consectetur adipiscing elit pellentesque
-											habitant morbi. Id interdum velit laoreet id donec ultrices.
-											Fringilla phasellus faucibus scelerisque eleifend donec
-											pretium. Est pellentesque elit ullamcorper dignissim. Mauris
-											ultrices eros in cursus turpis massa tincidunt dui.</p>
+									<div id="faq-list-2" class="collapse" data-parent=".faq-list">										
+										<div class="table-responsive">
+											<table class="table align-items-center table-flush">
+				
+												<thead class="thead-light">
+													<tr>
+														<th scope="col" class="sort" data-sort="budget"><a>institucioni</a> </th>
+														<th scope="col" class="sort" data-sort="budget"><a>programi</a> </th>
+														<th scope="col" class="sort" data-sort="budget"><a>vendi</a> </th>
+													</tr>
+												</thead>
+				
+												<tbody class="list">
+													<tr th:each="edu : ${mjekuSpec.getEducation()}">
+														<td th:text="${edu.schoolName}" />
+														<td th:text="${edu.program}" />
+														<td th:text="${edu.studyPlace}" />						
+													</tr>
+												</tbody>
+											</table>							
+										</div>										
 									</div></li><hr>
 
 								<li data-aos="fade-up" data-aos-delay="200"><a
@@ -157,12 +158,24 @@
 										class="bx bx-chevron-up icon-close"></i>
 								</a>
 									<div id="faq-list-3" class="collapse" data-parent=".faq-list">
-										<p>Eleifend mi in nulla posuere sollicitudin aliquam
-											ultrices sagittis orci. Faucibus pulvinar elementum integer
-											enim. Sem nulla pharetra diam sit amet nisl suscipit. Rutrum
-											tellus pellentesque eu tincidunt. Lectus urna duis convallis
-											convallis tellus. Urna molestie at elementum eu facilisis sed
-											odio morbi quis</p>
+										<div class="table-responsive">
+											<table class="table align-items-center table-flush">
+				
+												<thead class="thead-light">
+													<tr>
+														<th scope="col" class="sort" data-sort="budget"><a>titulli</a> </th>
+														<th scope="col" class="sort" data-sort="budget"><a>programi</a> </th>
+													</tr>
+												</thead>
+				
+												<tbody class="list">
+													<tr th:each="award : ${mjekuSpec.getAwards()}">
+														<td th:text="${award.title}" />
+														<td th:text="${award.program}" />																	
+													</tr>
+												</tbody>
+											</table>							
+										</div>	
 									</div></li><hr>
 
 								<li data-aos="fade-up" data-aos-delay="300"><a
@@ -171,11 +184,16 @@
 										class="bx bx-chevron-up icon-close"></i>
 								</a>
 									<div id="faq-list-4" class="collapse" data-parent=".faq-list">
-										<p>Molestie a iaculis at erat pellentesque adipiscing
-											commodo. Dignissim suspendisse in est ante in. Nunc vel risus
-											commodo viverra maecenas accumsan. Sit amet nisl suscipit
-											adipiscing bibendum est. Purus gravida quis blandit turpis
-											cursus in.</p>
+										<div class="table-responsive">
+											<table class="table align-items-center table-flush">
+				
+												<tbody class="list">
+													<tr th:each="cert : ${mjekuSpec.getCertifications()}">
+														<td th:text="${cert.titleOfCertification}" />																	
+													</tr>
+												</tbody>
+											</table>							
+										</div>	
 									</div></li><hr>
 
 								<li data-aos="fade-up" data-aos-delay="400"><a
@@ -183,11 +201,22 @@
 										class="bx bx-chevron-up icon-close"></i>
 								</a>
 									<div id="faq-list-5" class="collapse" data-parent=".faq-list">
-										<p>Laoreet sit amet cursus sit amet dictum sit amet justo.
-											Mauris vitae ultricies leo integer malesuada nunc vel.
-											Tincidunt eget nullam non nisi est sit amet. Turpis nunc eget
-											lorem dolor sed. Ut venenatis tellus in metus vulputate eu
-											scelerisque.</p>
+										<div class="table-responsive">
+											<table class="table align-items-center table-flush">
+				
+												<thead class="thead-light">
+													<tr>
+													
+													</tr>
+												</thead>
+				
+												<tbody class="list">
+													<tr th:each="lang : ${mjekuSpec.getLanguages()}">
+														<td th:text="${lang.language}" />																	
+													</tr>
+												</tbody>
+											</table>							
+										</div>	
 									</div></li><hr>
 
 
@@ -196,6 +225,87 @@
 
 
 					</div>
+
+					<section id="why-us" class="why-us" th:object="${mjekuSpec}">
+						<div class="container">
+							<input type="hidden" id="docId"  th:value="*{id}" />
+							<div class="row">
+								<div class="modal fade" id="reviewModal" tabindex="-1"
+								role="dialog" aria-labelledby="exampleModalLabel"
+								aria-hidden="true">
+								<div class="modal-dialog modal-dialog-centered" role="document">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h5 class="modal-title" id="exampleModalLabel">Rating</h5>
+											<button type="button" class="close" data-dismiss="modal"
+												aria-label="Close">
+												<span aria-hidden="true">&times;</span>
+											</button>
+										</div>
+										<div class="modal-body">
+											 <div class='success-box'>
+													    <div class='clearfix'></div>
+													    <img alt='tick image' width='32' src='data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pgo8IS0tIEdlbmVyYXRvcjogQWRvYmUgSWxsdXN0cmF0b3IgMTkuMC4wLCBTVkcgRXhwb3J0IFBsdWctSW4gLiBTVkcgVmVyc2lvbjogNi4wMCBCdWlsZCAwKSAgLS0+CjxzdmcgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmVyc2lvbj0iMS4xIiBpZD0iTGF5ZXJfMSIgeD0iMHB4IiB5PSIwcHgiIHZpZXdCb3g9IjAgMCA0MjYuNjY3IDQyNi42NjciIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDQyNi42NjcgNDI2LjY2NzsiIHhtbDpzcGFjZT0icHJlc2VydmUiIHdpZHRoPSI1MTJweCIgaGVpZ2h0PSI1MTJweCI+CjxwYXRoIHN0eWxlPSJmaWxsOiM2QUMyNTk7IiBkPSJNMjEzLjMzMywwQzk1LjUxOCwwLDAsOTUuNTE0LDAsMjEzLjMzM3M5NS41MTgsMjEzLjMzMywyMTMuMzMzLDIxMy4zMzMgIGMxMTcuODI4LDAsMjEzLjMzMy05NS41MTQsMjEzLjMzMy0yMTMuMzMzUzMzMS4xNTcsMCwyMTMuMzMzLDB6IE0xNzQuMTk5LDMyMi45MThsLTkzLjkzNS05My45MzFsMzEuMzA5LTMxLjMwOWw2Mi42MjYsNjIuNjIyICBsMTQwLjg5NC0xNDAuODk4bDMxLjMwOSwzMS4zMDlMMTc0LjE5OSwzMjIuOTE4eiIvPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8Zz4KPC9nPgo8L3N2Zz4K'/>
+													    <div class='text-message'></div>
+													    <div class='clearfix'></div>
+													  </div>
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary"
+												data-dismiss="modal">Close</button>
+											<button type="button" id="reviewButton" class="btn btn-primary">Save
+												changes</button>
+										</div>
+									</div>
+								</div>
+							</div>
+								<div class="col-sm-6 mx-auto align-items-stretch">
+									<div class="icon-boxes d-flex flex-column justify-content-center">
+										<div class="row">
+											<div class="col-xl-12 d-flex align-items-stretch">
+												<div class="icon-box mt-4 mt-xl-0">
+													<i class="bx bx-receipt"></i>
+													<h4>Leave a review</h4>
+													<p>How likely are you to recommend Dr...</p>
+													<section class='rating-widget'>
+													<!-- Rating Stars Box -->
+													  <div class='rating-stars text-center'>
+													    <ul id='stars'>
+													      <li class='star' title='Poor' data-value='1'>
+													        <i class='fa fa-star fa-fw'></i>
+													      </li>
+													      <li class='star' title='Fair' data-value='2'>
+													        <i class='fa fa-star fa-fw'></i>
+													      </li>
+													      <li class='star' title='Good' data-value='3'>
+													        <i class='fa fa-star fa-fw'></i>
+													      </li>
+													      <li class='star' title='Excellent' data-value='4'>
+													        <i class='fa fa-star fa-fw'></i>
+													      </li>
+													      <li class='star' title='WOW!!!' data-value='5'>
+													        <i class='fa fa-star fa-fw'></i>
+													      </li>
+													    </ul>
+													  </div>
+							  
+													 
+													</section>
+												</div>
+											</div>
+											
+										</div>
+									</div>
+									<!-- End .content-->
+								</div>
+							</div>
+						</div>
+					</section>
+					
+					
+					
+					
+					
 
 					<div class="faq-list">
 						<ul>

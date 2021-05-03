@@ -46,6 +46,12 @@ public class RecommendedMahoutTable{
 		
 	}
 
+	public RecommendedMahoutTable(int preference, Users user, Users doctor) {
+		this.preference = preference;
+		this.user = user;
+		this.doctor = doctor;
+	}
+
 	public RecommendedMahoutTable(int preference) {
 		
 		this.preference = preference;

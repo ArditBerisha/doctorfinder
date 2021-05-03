@@ -12,6 +12,8 @@ public interface SpecialitiesCategoryService {
 	
 	public SpecialitiesCategory findById(int theId);
 	
+	public SpecialitiesCategory findSpecByUserId(int theId);
+	
 	public void save(SpecialitiesCategory theSpec);
 	
 	public void deleteById(int theId);

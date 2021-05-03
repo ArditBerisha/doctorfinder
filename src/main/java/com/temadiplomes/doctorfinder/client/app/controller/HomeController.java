@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.temadiplomes.doctorfinder.entity.Users;
 import com.temadiplomes.doctorfinder.security.UsersServiceImpl;
@@ -71,9 +72,9 @@ public class HomeController {
 		return "shared/my-profile";
 	}
 
-	@GetMapping("/mjekuspec")
-	public String getDoctor(Model model) {
-		model.addAttribute("mjekuSpec", userService.findById(99));
+	@GetMapping("/details")
+	public String getDoctor(@RequestParam("docId") int docId,Model model) {
+		model.addAttribute("mjekuSpec", userService.findById(docId));
 		Users user = null;
 		try {
 			user = currentUser();
@@ -84,7 +85,7 @@ public class HomeController {
 		if (user != null) {
 			model.addAttribute("userDetails", user.getUsersDetail());
 		}
-		model.addAttribute("photoPath", currentUser().getUsersDetail());
+		//model.addAttribute("photoPath", currentUser().getUsersDetail());
 		return "user/mjekuspec";
 	}
 

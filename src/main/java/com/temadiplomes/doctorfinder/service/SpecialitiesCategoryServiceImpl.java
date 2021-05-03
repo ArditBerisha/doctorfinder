@@ -130,4 +130,10 @@ public class SpecialitiesCategoryServiceImpl implements SpecialitiesCategoryServ
 		return user;
 	}
 
+	@Override
+	public SpecialitiesCategory findSpecByUserId(int theId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

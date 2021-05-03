@@ -1,4 +1,4 @@
-/*
+
 package com.temadiplomes.doctorfinder.service;
 
 import java.util.List;
@@ -8,48 +8,45 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.temadiplomes.doctorfinder.dao.RecommendedMahoutTableRepository;
+import com.temadiplomes.doctorfinder.entity.Attribute;
 import com.temadiplomes.doctorfinder.entity.RecommendedMahoutTable;
 
 @Service
 public class RecommendedMahoutTableServiceImpl implements RecommendedMahoutTableService {
-
+	
 	@Autowired
-	private RecommendedMahoutTableRepository recommendedRepository;
+	private RecommendedMahoutTableRepository rMTRepository;
 
 	@Override
 	public List<RecommendedMahoutTable> findAll() {
-
-		return recommendedRepository.findAll();
+		return rMTRepository.findAll();
 	}
 
 	@Override
 	public RecommendedMahoutTable findById(int theId) {
+		Optional<RecommendedMahoutTable> result = rMTRepository.findById(theId);
 
-		Optional<RecommendedMahoutTable> result = recommendedRepository.findById(theId);
-		RecommendedMahoutTable recMahout = null;
+		RecommendedMahoutTable attr = null;
 		if (result.isPresent()) {
-			recMahout = result.get();
+			attr = result.get();
 		} else {
 			return null;
 		}
-
-		return recMahout;
+		return attr;
 	}
 
 	@Override
 	public void save(RecommendedMahoutTable theRMT) {
-
-		recommendedRepository.save(theRMT);
+		rMTRepository.save(theRMT);
 	}
 
 	@Override
 	public void deleteById(int theId) {
-
+		// TODO Auto-generated method stub
+		
 	}
+
 	
-	//public List<RecommendedMahoutTable> topFourDoctors(){
-		//return recommendedRepository.findTop4ByOrderByPreferenceDesc();
-	//}
 
 }
-*/
+

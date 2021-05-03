@@ -1,4 +1,4 @@
-/*
+
 package com.temadiplomes.doctorfinder.service;
 
 import java.util.List;
@@ -15,4 +15,4 @@ public interface RecommendedMahoutTableService {
 	
 	public void deleteById(int theId);
 }
-*/
+

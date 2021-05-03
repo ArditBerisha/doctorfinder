@@ -7,16 +7,14 @@ $(document)
 							var current = 1;
 							var steps = $("fieldset").length;
 
-							setProgressBar(current);
+							//setProgressBar(current);
 
 							$(".next")
 									.click(
 											function() {
 												current_fs = $(this).parent();
-												console.log("jhagdjagsjda" + current_fs);
 												next_fs = $(this).parent()
 														.next();
-												console.log(next_fs);
 
 												// Add Class Active
 												$("#progressbar li").eq(
@@ -44,7 +42,7 @@ $(document)
 													}
 													//console.log(obj.username);
 												}
-
+console.log(result);
 												if (!result) {
 													// show the next fieldset
 													next_fs.show();
@@ -122,8 +120,8 @@ $(document)
 								$(".progress-bar").css("width", percent + "%")
 							}
 
-							$(".submit").click(function() {
-								return false;
-							})
+							//$(".submit").click(function() {
+							//	return false;
+							//})
 
 						});
