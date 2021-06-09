@@ -14,38 +14,6 @@
 			<div class="container-fluid">
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-					<form th:action="@{/home/doctors-by-category}" method="POST" class="navbar-search navbar-search-light form-inline mr-sm-3"
-						id="navbar-search-main">
-
-							<div class="form-group mb-0">
-							<div
-								class="input-group input-group-alternative input-group-merge">
-
-								<div class="input-group-prepend">
-									<span class="input-group-text"><i class="fas fa-search"></i></span>
-								</div>
-								<select aria-controls="example" id="spe" name="spe"
-									class="custom-select custom-select-sm form-control form-control-sm">
-									<option value="0" selected="selected">--Kerko sipas specializimit--</option>
-
-									<option th:object="${spe}" th:each="code : ${spe}"
-										th:value="${code.name}" th:text="${code.name}"></option>
-								</select>
-							</div>
-						</div>
-						<button type="button" class="close" data-action="search-close"
-							data-target="#navbar-search-main" aria-label="Close">
-							<span aria-hidden="true">×</span>
-						</button>
-							
-							<button type="submit" id="sub" class="btn btn-primary-outline col-2">Kerko</button>
-						</form>
-
-					<!-- Search form -->
-					<form class="navbar-search navbar-search-light form-inline mr-sm-3"
-						id="navbar-search-main">
-						
-					</form>
 					<!-- Navbar links -->
 					<ul class="navbar-nav align-items-center  ml-md-auto ">
 						<li class="nav-item d-xl-none">

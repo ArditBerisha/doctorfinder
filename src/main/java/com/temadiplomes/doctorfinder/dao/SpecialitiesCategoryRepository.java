@@ -20,4 +20,8 @@ public interface SpecialitiesCategoryRepository extends JpaRepository<Specialiti
 	Page<SpecialitiesCategory> findByIsDeleted(Status status, Pageable pageable);
 	
 	public Page<SpecialitiesCategory> findByUsers(Users user, Pageable pageable);
+	
+	public List<SpecialitiesCategory> findByUsers(Users user); 
+	
+	//public List<Users> findBySpecialitiesCategory(SpecialitiesCategory specCategory);
 }

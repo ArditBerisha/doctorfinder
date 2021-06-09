@@ -15,7 +15,7 @@
 <body>
 	<div layout:fragment="content">
 	<div
-			th:replace="shared/admin/_navbarProfile :: navProfile(photoPath=${userDetailsPhoto.photoPath})"></div>
+			th:replace="shared/admin/_navbarProfile :: navProfile(photoPath=${userDetailsPhoto.photoPath},spe=${specialities})"></div>
 			
 		
 	<div class="header pb-6 d-flex align-items-center" style="min-height: 200px; background-image: url(/assets/img/theme/abcde.jpg); background-size: cover; background-position: center top;">

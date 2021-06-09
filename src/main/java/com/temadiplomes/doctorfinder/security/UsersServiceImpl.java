@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import com.temadiplomes.doctorfinder.dao.AuthoritiesRepository;
 import com.temadiplomes.doctorfinder.dao.UsersRepository;
 import com.temadiplomes.doctorfinder.entity.Authorities;
+import com.temadiplomes.doctorfinder.entity.SpecialitiesCategory;
 import com.temadiplomes.doctorfinder.entity.Users;
 import com.temadiplomes.doctorfinder.entity.UsersDetail;
 
@@ -187,6 +188,10 @@ public class UsersServiceImpl implements CustomUserService {
 		return userRepository.findTop4Doctors(pageable);
 	}
 	
-	
+	@Override
+	public List<Users> findBySpecCategory(SpecialitiesCategory specCategory){
+		return userRepository.findBySpecCategory(specCategory);
+	}
+
 
 }

@@ -136,4 +136,29 @@ public class SpecialitiesCategoryServiceImpl implements SpecialitiesCategoryServ
 		return null;
 	}
 
+	@Override
+	public List<SpecialitiesCategory> findByUsers(Users user) {
+		
+		return specRepository.findByUsers(currentUser());
+		
+	}
+	
+	@Override
+	public SpecialitiesCategory findByName(String name) {
+		Optional<SpecialitiesCategory> result = Optional.of(specRepository.findByName(name));
+
+		SpecialitiesCategory theSpec = null;
+
+		if (result.isPresent()) {
+
+			theSpec = result.get();
+
+		} else {
+
+			theSpec = null;
+		}
+
+		return theSpec;
+	}
+
 }

@@ -19,7 +19,7 @@
 
 	<div layout:fragment="content">
 		<div
-			th:replace="shared/admin/_navbar :: nav(photoPath=${userPhoto.photoPath})"></div>
+			th:replace="shared/admin/_navbarWithoutSearch :: nav(photoPath=${userPhoto.photoPath},spe=${specialities})"></div>
 
 
 		<div class="header bg-primary pb-6">

@@ -22,7 +22,7 @@
 <body>
 <body>
 	<div layout:fragment="content">
-		<div th:replace="shared/admin/_navbar :: nav(photoPath=${userDetails.photoPath})"></div>
+		<div th:replace="shared/admin/_navbarWithoutSearch :: nav(photoPath=${userDetails.photoPath},spe=${specialities})"></div>
 
 		<div class="header bg-primary pb-6">
 			<div
