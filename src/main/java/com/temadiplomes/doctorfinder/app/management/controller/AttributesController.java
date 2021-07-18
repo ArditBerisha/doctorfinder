@@ -19,10 +19,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.temadiplomes.doctorfinder.entity.Attribute;
+import com.temadiplomes.doctorfinder.entity.AttributeValue;
 import com.temadiplomes.doctorfinder.entity.ControlType;
 import com.temadiplomes.doctorfinder.entity.Users;
 import com.temadiplomes.doctorfinder.security.UsersServiceImpl;
 import com.temadiplomes.doctorfinder.service.AttributeServiceImpl;
+import com.temadiplomes.doctorfinder.service.AttributeValueServiceImpl;
 import com.temadiplomes.doctorfinder.service.ControlTypeServiceImpl;
 
 import enums.Status;
@@ -37,10 +39,15 @@ public class AttributesController {
 	private AttributeServiceImpl attrService;
 	
 	@Autowired
+	private AttributeValueServiceImpl attrValueService;
+	
+	@Autowired
 	private UsersServiceImpl userService;
 	
 	@Autowired
 	private ControlTypeServiceImpl cTService;
+	
+	int specValue;
 	
 	@GetMapping("/list")
 	public String attributeList(Model theModel) {
@@ -52,6 +59,8 @@ public class AttributesController {
 		boolean showInFilter = false;
 
 		Attribute attribute = new Attribute();
+		
+		AttributeValue attrValue = new AttributeValue();
 
 		List<Attribute> attrList = attrService.findAll().stream().filter(spec -> spec.isDeleted() == Status.ACTIVE)
 				.collect(Collectors.toList());
@@ -67,10 +76,25 @@ public class AttributesController {
 		model.addAttribute("showInFilter", showInFilter);
 		
 		model.addAttribute("userDetails", currentUser().getUsersDetail());
+		
+		model.addAttribute("attrValue", attrValue);
 
 		return "admin/attributes/attribute-form";
 		
 		
+	}
+	
+	@PostMapping("/saveValues")
+	public String saveValues(@ModelAttribute("attrValue") AttributeValue attrVal) {
+		
+		System.out.println(attrVal + "!!!!!!!!!!!!!!!!!!");
+		Attribute attribute = attrService.findById(specValue);
+		attrVal.setAttribute(attribute);
+		attrVal.setDeleted(false);
+		
+		attrValueService.save(attrVal);
+		
+		return "redirect:/admin/attributes/showFormForUpdate?" + "specId=" + specValue ;
 	}
 	
 	@PostMapping("/save")
@@ -105,6 +129,7 @@ public class AttributesController {
 
 		return "redirect:/admin/attributes/list";
 	}
+	
 
 	@GetMapping("/showFormForUpdate")
 	public String showFormForUpdate(@RequestParam("specId") int theId, Model theModel) {
@@ -120,7 +145,9 @@ public class AttributesController {
 		// theModel.addAttribute("intersectAuth", listAuth);
 		// theModel.addAttribute("authId","");
 		// theModel.addAttribute("authorities",auth);
+		specValue = theId;
 		Attribute attribute = attrService.findById(theId);
+		AttributeValue attrValue = new AttributeValue();
 		
 		//String cTName = attrService.findControlTypeName(attribute.getControlType().getId());
 		
@@ -139,7 +166,11 @@ public class AttributesController {
 		theModel.addAttribute("cTList", cTList);
 		theModel.addAttribute("attribute", attribute);
 		theModel.addAttribute("cT", cT);
+		theModel.addAttribute("attrValue", attrValue);
 		theModel.addAttribute("userDetails", currentUser().getUsersDetail());
+		theModel.addAttribute("attrValues", attrValueService.findByAttribute(attribute));
+		System.out.println("SpecId TEst");
+		System.out.println((attrValueService.findByAttribute(attribute)));
 		
 		return "admin/attributes/attribute-form";
 
@@ -149,6 +180,14 @@ public class AttributesController {
 	public String delete(@RequestParam("specId") int theId) {
 		attrService.deleteById(theId);
 		return "redirect:/admin/attributes/list";
+	}
+	
+	@GetMapping("/delete/attrValue")
+	public String deleteAuthority(@ModelAttribute("specId") int specId,@RequestParam("attrVal") int attrVal) {
+		
+		attrValueService.deleteLanguageFromUser(attrVal);
+		
+		return "redirect:/admin/attributes/showFormForUpdate?" + "specId=" + specId;
 	}
 	
 	@GetMapping("/list/page")

@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+import com.temadiplomes.doctorfinder.entity.Authorities;
 import com.temadiplomes.doctorfinder.entity.SpecialitiesCategory;
 import com.temadiplomes.doctorfinder.entity.Users;
 import com.temadiplomes.doctorfinder.entity.UsersDetail;
@@ -35,5 +36,7 @@ public interface CustomUserService extends UserDetailsService{
 	public Page<Users> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection);
 	
 	public List<Users> findBySpecCategory(SpecialitiesCategory specCategory);
+	
+	List<Users> findByAuthorities(Authorities auth);
 
 }

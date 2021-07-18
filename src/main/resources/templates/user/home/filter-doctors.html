@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{user/userlayout}">
+
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Oda Mjekeve</title>
+<style sec:authorize="isAuthenticated()">
+#header {
+	top: 78px;
+}
+.section-title h2{
+	margin-top: 20px;
+}
+</style>
+
+<style sec:authorize="!isAuthenticated()">
+#header {
+	top: 0px;
+}
+.section-title h2{
+	margin-top: 20px;
+}
+</style>
+</head>
+<body>
+
+	<div layout:fragment="content">
+	<div>
+	
+	</div>
+	
+		<main id="main">
+			<!-- End Why Us Section -->
+
+			<!-- ======= Doctors Section ======= -->
+			<section id="doctors" class="doctors">
+				<div class="container">
+
+					<div class="section-title">
+						<h2>Doctors</h2>
+						<p>Sharing your experience can connect someone to the care
+							they need.</p>
+					</div>
+
+					<div class="row">
+
+						<div th:each="test : ${top4Doctors}" class="col-lg-6 mt-4">
+							<div class="member d-flex align-items-start">
+								<div class="pic">
+									<a th:href="@{/details/doc(docId=${test.id})}"><img alt="Image placeholder" 
+										th:src="*{'data:image/jpeg;base64,'+ test.getUsersDetail().photoPath}" class="img-fluid"></a>
+								</div>
+								<div class="member-info">
+									<h4 th:text="${test.username}"></h4>
+									<span>Chief Medical Officer</span>
+									<p>Explicabo voluptatem mollitia et repellat qui dolorum
+										quasi</p>
+									<div class="social">
+										 <a href=""><i class="ri-twitter-fill"></i></a>
+										 <a href=""><i class="ri-facebook-fill"></i></a> 
+										 <a href=""><i class="ri-instagram-fill"></i></a> 
+										 <a href=""> <i class="ri-linkedin-box-fill"></i></a>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<hr>
+
+				</div>
+			</section>
+		</main>
+		<!-- End #main -->
+	</div>
+
+</body>
+</html>

@@ -193,5 +193,10 @@ public class UsersServiceImpl implements CustomUserService {
 		return userRepository.findBySpecCategory(specCategory);
 	}
 
+	@Override
+	public List<Users> findByAuthorities(Authorities auth) {
+		return userRepository.findByAuthorities(auth);
+	}
+
 
 }
