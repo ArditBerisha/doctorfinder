@@ -100,4 +100,9 @@ public class AttributeServiceImpl implements AttributeService {
 		return result.getName();
 	}
 
+	@Override
+	public List<Attribute> findByShowInFilter(boolean showInFilter) {
+		return attributeRepository.findByShowInFilter(showInFilter);
+	}
+
 }

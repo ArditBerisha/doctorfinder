@@ -15,4 +15,6 @@ public interface AttributeRepository extends JpaRepository<Attribute, Integer> {
 	public List<Attribute> findAllByOrderByNameAsc();
 	
 	Page<Attribute> findByIsDeleted(Status status, Pageable pageable);
+	
+	List<Attribute> findByShowInFilter(boolean showInFilter);
 }

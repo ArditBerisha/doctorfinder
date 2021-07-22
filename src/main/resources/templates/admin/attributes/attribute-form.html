@@ -127,7 +127,7 @@
 							<button type="submit" class="btn btn-info col-2">Save</button>
 						</form>
 						<br>
-
+<div th:if="${#httpServletRequest.requestURI} == '/admin/attributes/showFormForUpdate'">
 						<form th:action="@{/admin/attributes/saveValues}" method="POST"
 							th:object="${attrValue}">
 							<div class="card-header">
@@ -154,9 +154,7 @@
 										</div>
 
 									</div>
-								</div>
-
-								<div th:if="${#httpServletRequest.requestURI} == 'test'">
+								</div>							
 									<ul class="list-group">
 										<li class="list-group-item active">VLERAT</li>
 										<li th:each="tempLang : ${attrValues}"
@@ -169,11 +167,9 @@
 										</a>
 										</li>
 									</ul>
-								</div>
-	
 							</div>
-
 						</form>
+						</div>
 						<hr class="my-4">
 						<a type="button" class="float-left btn btn-primary"
 							th:href="@{/admin/attributes/list}">Kthehu tek lista e

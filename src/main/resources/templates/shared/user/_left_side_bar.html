@@ -1,0 +1,172 @@
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+	<style>
+		.range-wrap {
+  position: relative;
+  margin: 0 auto 3rem;
+}
+.range {
+  width: 100%;
+}
+.bubble {
+  background: red;
+  color: white;
+  padding: 4px 12px;
+  position: absolute;
+  border-radius: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.bubble::after {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: red;
+  top: -1px;
+  left: 50%;
+}
+	</style>
+	<script>
+	const
+	  range = document.getElementById('range'),
+	  rangeV = document.getElementById('rangeV'),
+	  setValue = ()=>{
+	    const
+	      newValue = Number( (range.value - range.min) * 100 / (range.max - range.min) ),
+	      newPosition = 10 - (newValue * 0.2);
+	    rangeV.innerHTML = `<span>${range.value}</span>`;
+	    rangeV.style.left = `calc(${newValue}% + (${newPosition}px))`;
+	  };
+	document.addEventListener("DOMContentLoaded", setValue);
+	range.addEventListener('input', setValue);
+	</script>
+</head>
+<body>
+	<div th:fragment="leftSideBar">
+		<div class="scroll-wrapper scrollbar-inners"
+			style="position: relative;">
+			<div class="scrollbar-inner scroll-content scroll-scrolly_visible"
+				style="height: auto; margin-bottom: 0px; margin-right: 0px; max-height: 651px;">
+				<!-- Brand -->
+				<div class="sidenav-header  align-items-center">
+					<a class="navbar-brand" href="javascript:void(0)"> <img
+						th:src="@{/assets/img/brand/findDoctorLogo.png}" class="navbar-brand-img"
+						alt="...">
+					</a>
+				</div>
+				<div class="navbar-inner">
+
+
+					<!-- Collapse -->
+					<div class="collapse navbar-collapse" id="sidenav-collapse-main">
+						<!-- Nav items -->
+						<ul class="navbar-nav">
+							<li class="nav-item"><a class="nav-link"
+								th:classappend="${#httpServletRequest.requestURI.startsWith('/admin/dashboard') ? 'active' : ''}"
+								th:href="@{/admin/dashboard/}"> <i
+									class="ni ni-tv-2 text-primary"></i> <span
+									class="nav-link-text"><b>Filterat</b></span>
+									
+							</a></li>
+							
+						</ul>
+						<hr class="my-4" />
+
+
+						<div id="ardit" th:each="entry : ${filters}"
+							th:with="values=${entry.value}">
+							
+							<div th:switch="${entry.key.getControlType().getId()}">
+							
+								<!-- DROP DOWN LIST -->
+								<div th:case="3">
+								<h3>[[${entry.key.getName()}]]</h3>
+									<select aria-controls="example" id="spe" name="spe"
+										class="custom-select custom-select-sm form-control form-control-sm">
+										<option value="3" selected="selected">Zgjedh Vleren</option>
+
+										<option th:each="val : ${entry.value}"
+											th:value="${val.getValue()}" th:text="${val.getValue()}">
+										</option>
+									</select>
+									<hr class="my-4" />
+								</div>
+								
+								<!-- DROP DOWN LIST -->
+								<div th:case="1" >
+								<h3>[[${entry.key.getName()}]]</h3>
+									<div th:each="val : ${entry.value}">
+										<label class="form-control-label" for="input-first-name">[[${val.getValue()}]]</label>
+										<input  type="checkbox" th:name="test" data-style="ios">
+									</div>
+									<hr class="my-4" />
+								</div>
+								
+								<!-- RADIO BUTTON -->
+								<div th:case="2" >
+								<h3>[[${entry.key.getName()}]]</h3>
+									<div th:each="val : ${entry.value}">
+										<input  type="radio" th:name="test" data-style="ios">
+										<label class="form-control-label" for="input-first-name">[[${val.getValue()}]]</label>
+									</div>
+									<hr class="my-4" />
+								</div>
+								
+								<!-- Range Up -->
+								<div th:case="6" >
+								<h3>[[${entry.key.getName()}]]</h3>
+									<!-- <input type="range" name="rangeInput" min="0" max="100" >
+									<input type="text" id="textInput" value="" onforminput="value = rangeInput.valueAsNumber;"> -->
+									  <input type="range" class="range" min="0" max="100">
+  										<output class="bubble"></output>
+									<hr class="my-4" />
+								</div>
+
+							</div>
+
+						</div>
+
+						<ul>
+							<!-- <tr th:each="instance : ${filters}">
+    							<td th:text="${instance.key.getName()}">keyvalue</td>
+    							<td th:text="${instance.value}">keyvalue</td> -->
+
+							<!--  <table>
+    								<tbody>
+    									<tr th:each="entry : ${filters}" th:with="values=${entry.value}">
+    										<td th:text="${entry.key.getName()}"></td>
+    										<td th:each="test : ${entry.value}">
+    											<p th:text="${test.getValue()}">
+    										</td>
+    										
+    									</tr>
+    								</tbody>
+    							</table> -->
+
+						</ul>
+
+					</div>
+				</div>
+			</div>
+			<div class="scroll-element scroll-x scroll-scrolly_visible">
+				<div class="scroll-element_outer">
+					<div class="scroll-element_size"></div>
+					<div class="scroll-element_track"></div>
+					<div class="scroll-bar" style="width: 0px;"></div>
+				</div>
+			</div>
+			<div class="scroll-element scroll-y scroll-scrolly_visible">
+				<div class="scroll-element_outer">
+					<div class="scroll-element_size"></div>
+					<div class="scroll-element_track"></div>
+					<div class="scroll-bar" style="height: 571px; top: 0px;"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>
