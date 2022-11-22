@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import com.temadiplomes.doctorfinder.dao.AuthoritiesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
@@ -35,7 +36,10 @@ public class UsersController {
 
 	@Autowired
 	private UsersServiceImpl userService;
-	
+
+	@Autowired
+	private AuthoritiesRepository authorityRepository;
+
 	@Autowired
 	private AuthoritiesServiceImpl authorityService;
 	
@@ -56,9 +60,11 @@ public class UsersController {
 	@GetMapping("/showFormForAdd")
 	public String showFormForAdd(Model model) {
 		Users user = new Users();
+		List<Authorities> listAuth = authorityService.findAll();
 		
 		model.addAttribute("user", user);
-		model.addAttribute("userDetails", currentUser().getUsersDetail());
+		model.addAttribute("intersectAuth",listAuth);
+//		model.addAttribute("userDetails", currentUser().getUsersDetail());
 		
 		return "admin/users/user-form";
 	}
@@ -78,7 +84,7 @@ public class UsersController {
 		theModel.addAttribute("intersectAuth", listAuth);
 		theModel.addAttribute("authId","");
 		theModel.addAttribute("authorities",auth);
-		theModel.addAttribute("userDetails", currentUser().getUsersDetail());
+//		theModel.addAttribute("userDetails", currentUser().getUsersDetail());
 		
 		return "admin/users/user-form";
 		
@@ -119,7 +125,7 @@ public class UsersController {
 		userService.save(user);
 
 		//return "redirect:/admin/perdoruesit/myProfile";
-		return "redirect:/user/myProfile";
+		return "redirect:/admin/perdoruesit/list";
 	}
 	
 	@GetMapping("/delete/authority")
@@ -148,7 +154,7 @@ public class UsersController {
 		Stream<Users> s = listUsers.stream();
 		listUsers = s.collect(Collectors.toList());
 		
-		model.addAttribute("userDetails", currentUser().getUsersDetail());
+//		model.addAttribute("userDetails", currentUser().getUsersDetail());
 		
 		
 		model.addAttribute("currentPage", pageNo);
@@ -172,8 +178,8 @@ public class UsersController {
 	public String myProfile(Model model) {
 		Users user = currentUser();
 		UsersPhoto uPhoto = new UsersPhoto();
-		uPhoto.setBiography(user.getUsersDetail().getBiography());
-		model.addAttribute("userDetailsPhoto", currentUser().getUsersDetail());
+//		uPhoto.setBiography(user.getUsersDetail().getBiography());
+//		model.addAttribute("userDetailsPhoto", currentUser().getUsersDetail());
 		model.addAttribute("theUser", currentUser());
 		model.addAttribute("usersPhoto", uPhoto);
 		

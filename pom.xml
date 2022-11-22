@@ -11,12 +11,13 @@
 	<groupId>com.temadiplomes</groupId>
 	<artifactId>doctorfinder</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
 	<name>doctorfinder</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
 		<java.version>1.8</java.version>
-		
+		<start-class>com.temadiplomes.doctorfinder</start-class>
 		<!--<maven-jar-plugin.version>3.0.1</maven-jar-plugin.version>-->
 	</properties>
 
@@ -71,6 +72,11 @@
 			<version>1.9.22</version>
 		</dependency>
 		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
   			<groupId>nz.net.ultraq.thymeleaf</groupId>
   			<artifactId>thymeleaf-layout-dialect</artifactId>
 		</dependency>
@@ -89,6 +95,12 @@
 					<artifactId>junit-vintage-engine</artifactId>
 				</exclusion>
 			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		
 		<dependency>
