@@ -40,8 +40,6 @@
 		<div th:replace="~{shared/user/_left_side_bar :: leftSideBar}"></div>
 	</nav>
 	<div id="test1" sec:authorize="isAuthenticated()">
-		<div
-			th:replace="shared/admin/_navbar :: nav(photoPath=${userDetails.photoPath},spe=${specialities})"></div>
 	</div>
 
 	<div id="test2" th:replace="~{shared/user/_header :: header}"></div>

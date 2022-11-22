@@ -21,7 +21,7 @@ public class DashboardController {
 	
 	@GetMapping("/")
 	public String dashboard(Model model) {
-		model.addAttribute("userDetails", currentUser().getUsersDetail());
+//		model.addAttribute("userDetails", currentUser().getUsersDetail());
 		return "admin/dashboard/dashboard";
 	}
 

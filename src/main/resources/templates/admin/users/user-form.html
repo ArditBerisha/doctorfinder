@@ -8,7 +8,7 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Oda Mjekeve</title>
+<title>Perdoruesit</title>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <script th:src="@{/js/admin.js}"></script>
@@ -16,8 +16,8 @@
 <body>
 <body>
 	<div layout:fragment="content">
-		<div
-			th:replace="shared/admin/_navbarWithoutSearch :: nav(photoPath=${userDetails.photoPath},spe=${specialities})"></div>
+<!--		<div-->
+<!--			th:replace="shared/admin/_navbarWithoutSearch :: nav(photoPath=${userDetails.photoPath},spe=${specialities})"></div>-->
 		
 		<div class="header bg-primary pb-6">
 			<div
@@ -34,7 +34,7 @@
 						</div>
 					</div>
 					<div class="card-body">
-						<form th:action="@{/admin/perdoruesit/save}" th:object="${user}"
+						<form th:action="@{/admin/perdoruesit/update}" th:object="${user}"
 							method="POST">
 							<input type="hidden" th:field="*{id}" />
 							<div class="pl-lg-4">
@@ -43,14 +43,14 @@
 										<div class="form-group">
 											<label class="form-control-label">Username</label> <input
 												type="text" th:field="*{username}" class="form-control"
-												placeholder="Username" readonly>
+												placeholder="Username" th:readonly="*{username}">
 										</div>
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label class="form-control-label">Emri</label> <input
 												type="text" th:field="*{firstName}" class="form-control"
-												placeholder="Emri" readonly>
+												placeholder="Emri">
 										</div>
 									</div>
 									<!--<div class="col-lg-6">
@@ -67,14 +67,14 @@
 										<div class="form-group">
 											<label class="form-control-label">Mbiemri</label> <input
 												type="text" th:field="*{lastName}" class="form-control"
-												placeholder="Mbiemri" readonly>
+												placeholder="Mbiemri">
 										</div>
 									</div>
 									<div class="col-lg-6">
 										<div class="form-group">
 											<label class="form-control-label">Email</label> <input
 												type="text" th:field="*{email}" class="form-control"
-												placeholder="Email" readonly>
+												placeholder="Email" th:readonly="*{email}">
 										</div>
 									</div>
 									<hr class="my-4">
@@ -111,9 +111,9 @@
 										</div>
 										<ul class="list-group">
 											<li 
-												class="list-group-item active">ROLE_EMPLOYEE
+												class="list-group-item active">ROLE_ADMIN
 											</li>
-											<li th:each="tempAuth : ${authorities}" th:if="${tempAuth.authority} != 'ROLE_EMPLOYEE'"
+											<li th:each="tempAuth : ${authorities}" th:if="${tempAuth.authority} != ' '"
 												class="list-group-item">[[${tempAuth.authority}]]  <a
 												class="delBtn"
 												th:href="@{/admin/perdoruesit/delete/authority(userName=${user.username},authName=${tempAuth.authority})}">

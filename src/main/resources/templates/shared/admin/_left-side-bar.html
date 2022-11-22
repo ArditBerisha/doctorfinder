@@ -30,12 +30,6 @@
 									class="ni ni-tv-2 text-primary"></i> <span
 									class="nav-link-text">Dashboard</span>
 							</a></li>
-							<li class="nav-item" id="z" sec:authorize="hasRole('ROLE_ADMIN')"><a class="nav-link"
-								th:classappend="${#httpServletRequest.requestURI.startsWith('/admin/odaMjekesise') ? 'active' : ''}"
-								th:href="@{/admin/odaMjekesise/list}"> <i
-									class="ni ni-planet text-orange"></i> <span
-									class="nav-link-text">Oda Mjekesise</span>
-							</a></li>
 
 							<li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')"><a class="nav-link"
 								th:classappend="${#httpServletRequest.requestURI.startsWith('/admin/perdoruesit') ? 'active' : ''}"
@@ -50,70 +44,6 @@
 									class="ni ni-bullet-list-67 text-default"></i> <span
 									class="nav-link-text">Rolet</span>
 							</a></li>
-							
-							<li class="nav-item"><a class="nav-link"
-								th:classappend="${#httpServletRequest.requestURI.startsWith('/admin/specialities') ? 'active' : ''}"
-								th:href="@{/admin/specialities/list}"> <i
-									class="ni ni-collection text-pink"></i> <span
-									class="nav-link-text">Specializimet</span>
-							</a></li>
-
-							<li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')"><a href="#"
-								class="dropdown-toggle nav-link" data-toggle="dropdown"> <i
-									class="ni ni-archive-2"></i> <span class="nav-link-text">Atributet</span></a>
-								<div class="dropdown-menu">
-									<a class="dropdown-item nav-link"
-										th:href="@{/admin/attributes/list}"> <i
-										class="ni ni-fat-add"></i><span class="nav-link-text">Atributet</span></a>
-
-									<a class="dropdown-item nav-link active"
-										th:href="@{/admin/controlType/list}"><i
-										class="ni ni-fat-add"></i><span class="nav-link-text">Control
-											Type</span></a> 
-											
-											<!--<a class="dropdown-item nav-link"><i
-										class="ni ni-fat-add"></i><span class="nav-link-text">Attribute
-											Value</span></a>-->
-								</div></li>
-								
-								<!-- ##############DOCTOR MANAGEMENT ######################-->
-							
-							<li class="nav-item" sec:authorize="hasRole('ROLE_MANAGER')"><a class="nav-link"
-								th:classappend="${#httpServletRequest.requestURI.startsWith('/admin/certification') ? 'active' : ''}"
-								th:href="@{/admin/certification/list}"> <i
-									class="ni ni-paper-diploma"></i> <span
-									class="nav-link-text">Certifikatat</span>
-							</a></li>
-							
-							<li class="nav-item" sec:authorize="hasRole('ROLE_MANAGER')"><a class="nav-link"
-								th:classappend="${#httpServletRequest.requestURI.startsWith('/admin/education') ? 'active' : ''}"
-								th:href="@{/admin/education/list}"> <i
-									class="ni ni-hat-3 text-blue"></i> <span
-									class="nav-link-text">Edukimi</span>
-							</a></li>
-							
-							<li class="nav-item" sec:authorize="hasRole('ROLE_MANAGER')"><a class="nav-link"
-								th:classappend="${#httpServletRequest.requestURI.startsWith('/admin/awards') ? 'active' : ''}"
-								th:href="@{/admin/awards/list}"> <i
-									class="ni ni-trophy text-yellow"></i> <span
-									class="nav-link-text">Mirenjohjet</span>
-							</a></li>
-							
-							<li class="nav-item" sec:authorize="hasRole('ROLE_MANAGER')"><a class="nav-link"
-								th:classappend="${#httpServletRequest.requestURI.startsWith('/admin/ordinances') ? 'active' : ''}"
-								th:href="@{/admin/ordinances/list}"> <i
-									class="ni ni-shop text-primary"></i> <span
-									class="nav-link-text">Ordinancat</span>
-							</a></li>
-							
-							<li class="nav-item" sec:authorize="hasRole('ROLE_MANAGER')"><a class="nav-link"
-								th:classappend="${#httpServletRequest.requestURI.startsWith('/admin/specialities') ? 'active' : ''}"
-								th:href="@{/admin/specialities/list}"> <i
-									class="ni ni-ungroup text-default"></i> <span
-									class="nav-link-text">Komentet</span>
-							</a></li>
-							
-							<!-- ##############DOCTOR MANAGEMENT ######################-->
 
 
 						</ul>

@@ -20,9 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.temadiplomes.doctorfinder.dao.AuthoritiesRepository;
 import com.temadiplomes.doctorfinder.entity.Users;
-import com.temadiplomes.doctorfinder.entity.UsersDetail;
 import com.temadiplomes.doctorfinder.security.CustomUserService;
-import com.temadiplomes.doctorfinder.service.UsersDetailServiceImpl;
 
 import dto.UserDTO;
 import enums.Status;
@@ -41,9 +39,6 @@ public class RegistrationController {
     
     @Autowired 
 	private AuthoritiesRepository authorityRepository;
-    
-    @Autowired
-    private UsersDetailServiceImpl uDetailsService;
 	
     private Logger logger = Logger.getLogger(getClass().getName());
     
@@ -88,11 +83,7 @@ public class RegistrationController {
 			logger.warning("User name already exists.");
 			return "/admin/register/registrationForm";
         }
-        
-        UsersDetail ud = uDetailsService.findById(2);
-        UsersDetail userDetails = new UsersDetail();
-        userDetails.setBiography(ud.getBiography());
-        userDetails.setPhotoPath(ud.getPhotoPath());
+
         Users user = new Users();
         user.setLastName(theUser.getLastName());
         user.setFirstName(theUser.getFirstName());
@@ -103,15 +94,13 @@ public class RegistrationController {
 		user.setAccountNonExpired(true);
 		user.setAccountNonLocked(true);
 		user.setCredentialsNonExpired(true);
-		user.setUsersDetail(userDetails);
-		
-		user.setAuthorities(Arrays.asList(authorityRepository.findRoleByAuthority("ROLE_EMPLOYEE")));
+		user.setAuthorities(Arrays.asList(authorityRepository.findRoleByAuthority("ROLE_ADMIN")));
         
         // create user account        						
         usersService.save(user);
         
         logger.info("Successfully created user: " + userName);
         
-        return "admin/register/registration-confirmation";	
+		return "/admin/login/logintest";
 	}
 }

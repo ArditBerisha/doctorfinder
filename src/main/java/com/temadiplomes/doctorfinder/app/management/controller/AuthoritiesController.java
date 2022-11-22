@@ -54,7 +54,7 @@ public class AuthoritiesController {
 		model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
 		
 		model.addAttribute("listAuthorities", listAuthorities);
-		model.addAttribute("userDetails", currentUser().getUsersDetail());
+//		model.addAttribute("userDetails", currentUser().getUsersDetail());
 		
 		return "admin/authorities/authorities-list";
 	}

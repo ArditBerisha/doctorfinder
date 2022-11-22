@@ -1,38 +1,21 @@
 package com.temadiplomes.doctorfinder.client.app.controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.temadiplomes.doctorfinder.entity.Attribute;
-import com.temadiplomes.doctorfinder.entity.AttributeValue;
-import com.temadiplomes.doctorfinder.entity.Authorities;
-import com.temadiplomes.doctorfinder.entity.Language;
-import com.temadiplomes.doctorfinder.entity.SpecialitiesCategory;
 import com.temadiplomes.doctorfinder.entity.Users;
 import com.temadiplomes.doctorfinder.security.UsersServiceImpl;
-import com.temadiplomes.doctorfinder.service.AttributeService;
-import com.temadiplomes.doctorfinder.service.AttributeValueService;
 import com.temadiplomes.doctorfinder.service.AuthoritiesService;
-import com.temadiplomes.doctorfinder.service.SpecialitiesCategoryService;
 
 import dto.UsersPhoto;
-import enums.Status;
 
 @Controller
 @RequestMapping("/home")
@@ -42,48 +25,14 @@ public class HomeController {
 	private UsersServiceImpl userService;
 	
 	@Autowired
-	private SpecialitiesCategoryService specialitiesService;
-	
-	@Autowired
 	private AuthoritiesService authService;
-	
-	@Autowired
-	private AttributeService attrService;
-	
-	@Autowired
-	private AttributeValueService attrValueService;
+
 	
 	private final boolean ShowInFilter = true;
 
 	@GetMapping("/")
 	public String home(Model model) {
 		Users user = null;
-		
-		Attribute attributeKey = null;
-		
-		List<Attribute> attrInFilters = attrService.findByShowInFilter(ShowInFilter);
-		
-		List<AttributeValue> attributeValues;
-		
-		List<AttributeValue> attributeValues1 = null;
-		
-		HashMap<Attribute, List<AttributeValue>> filters = new HashMap<>();
-		
-		
-		
-		for (Attribute attr:attrInFilters) {
-			if(attr.getDeleted() == Status.ACTIVE) {
-				System.out.println("Ardit: " + attr.getName());
-				attributeKey = attr;
-				attributeValues = attrValueService.findByAttribute(attr);
-				attributeValues1 = attrValueService.findByAttribute(attr);
-				System.out.println("TEST ATTRIBUTE");
-				filters.put(attributeKey, attributeValues);
-				attributeValues = null;
-			}
-		}
-		
-		System.out.println("HashMap toString:" + filters.toString());
 		try {
 			user = currentUser();
 		} catch (Exception exc) {
@@ -91,21 +40,8 @@ public class HomeController {
 		}
 
 		if (user != null) {
-			model.addAttribute("userDetails", user.getUsersDetail());
-			model.addAttribute("photoPath", currentUser().getUsersDetail());
-		}
-		
-		Authorities auth = authService.findById(3);
-
-		List<Users> top4Doctors = userService.findByAuthorities(auth);
-		List<SpecialitiesCategory> specs = specialitiesService.findAll();
-		model.addAttribute("top4Doctors", top4Doctors);
-		model.addAttribute("specialities",specs);
-		model.addAttribute("filters", filters);
-		model.addAttribute("attributeValues1",attributeValues1);
-		
-		for(SpecialitiesCategory spec : specs) {
-			System.out.println(spec.getName());
+//			model.addAttribute("userDetails", user.getUsersDetail());
+//			model.addAttribute("photoPath", currentUser().getUsersDetail());
 		}
 
 		return "/user/home/home";
@@ -131,8 +67,8 @@ public class HomeController {
 	public String myProfile(Model model) {
 		Users user = currentUser();
 		UsersPhoto uPhoto = new UsersPhoto();
-		uPhoto.setBiography(user.getUsersDetail().getBiography());
-		model.addAttribute("userDetailsPhoto", currentUser().getUsersDetail());
+//		uPhoto.setBiography(user.getUsersDetail().getBiography());
+//		model.addAttribute("userDetailsPhoto", currentUser().getUsersDetail());
 		model.addAttribute("theUser", currentUser());
 		model.addAttribute("usersPhoto", uPhoto);
 
@@ -150,7 +86,7 @@ public class HomeController {
 		}
 
 		if (user != null) {
-			model.addAttribute("userDetails", user.getUsersDetail());
+//			model.addAttribute("userDetails", user.getUsersDetail());
 		}
 		//model.addAttribute("photoPath", currentUser().getUsersDetail());
 		return "user/mjekuspec";
@@ -160,8 +96,7 @@ public class HomeController {
 	public String doctors(@RequestParam("spe") String specName, Model model) {
 		Users user = currentUser();
 		
-		SpecialitiesCategory speciality = specialitiesService.findByName(specName);
-		
+
 		user = null;
 		try {
 			user = currentUser();
@@ -170,20 +105,8 @@ public class HomeController {
 		}
 
 		if (user != null) {
-			model.addAttribute("userDetails", user.getUsersDetail());
-			model.addAttribute("photoPath", currentUser().getUsersDetail());
-		}
-		
-		SpecialitiesCategory category = specialitiesService.findByName(specName);
-		List<Users> doctorsByCategory = userService.findBySpecCategory(category);
-
-		List<SpecialitiesCategory> specs = specialitiesService.findAll();
-		
-		model.addAttribute("top4Doctors", doctorsByCategory);
-		model.addAttribute("specialities",specs);
-		
-		for(SpecialitiesCategory spec : specs) {
-			System.out.println(spec.getName());
+//			model.addAttribute("userDetails", user.getUsersDetail());
+//			model.addAttribute("photoPath", currentUser().getUsersDetail());
 		}
 
 		return "/user/home/filter-doctors";
