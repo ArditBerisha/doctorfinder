@@ -66,7 +66,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.antMatchers("/systems/**").hasRole("ADMIN")
 			.and()
 			.formLogin()
-				.loginPage("/login/showMyLoginPage")
+				.loginPage("/login/usersDetail")
 				.loginProcessingUrl("/authenticateTheUser")
 				.successHandler(customAuthenticationSuccessHandler)
 				.permitAll()
@@ -74,7 +74,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.logout().deleteCookies().permitAll()
 			.and()
 			.formLogin()
-			.loginPage("/home/")
+			.loginPage("/login/usersDetail")
 			.permitAll()
 			.and()
 			.exceptionHandling().accessDeniedPage("/error/403.html");

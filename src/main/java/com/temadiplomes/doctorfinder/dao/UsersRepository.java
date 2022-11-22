@@ -6,10 +6,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
 
 import com.temadiplomes.doctorfinder.entity.Authorities;
-import com.temadiplomes.doctorfinder.entity.SpecialitiesCategory;
 import com.temadiplomes.doctorfinder.entity.Users;
 
 import enums.Status;
@@ -27,10 +25,6 @@ public interface UsersRepository extends JpaRepository<Users, Integer> {
 	
 	public Page<Users> findByEnabled(Status status, Pageable pageable);
 
-	@Query("SELECT u from Users u join u.recDoctor rec Group By rec.doctor Order By AVG(rec.preference) DESC")
-	public List<Users> findTop4Doctors(Pageable pageable);
-	
-	public List<Users> findBySpecCategory(SpecialitiesCategory specCategory);
 	
 	List<Users> findByAuthorities(Authorities auth);
 

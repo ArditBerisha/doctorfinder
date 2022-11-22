@@ -52,7 +52,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 			response.sendRedirect(request.getContextPath() + "/admin/dashboard/");
 		}*/
 		
-		response.sendRedirect(request.getContextPath() + "/home/");
+		response.sendRedirect(request.getContextPath() + "/admin/dashboard/");
 		
 		
 	}

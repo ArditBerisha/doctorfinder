@@ -7,7 +7,7 @@
 
 </head>
 <body>
-	<div th:fragment="nav(photoPath,spe)">
+	<div th:fragment="nav(spe)">
 
 		<nav
 			class="navbar navbar-top navbar-expand navbar-dark bg-primary border-bottom">
@@ -198,9 +198,9 @@
 							href="#" role="button" data-toggle="dropdown"
 							aria-haspopup="true" aria-expanded="false">
 								<div class="media align-items-center">
-									<span class="avatar avatar-sm rounded-circle"> <img
-										alt="" th:src="*{'data:image/jpeg;base64,'+ photoPath}">
-									</span>
+<!--									<span class="avatar avatar-sm rounded-circle"> <img-->
+<!--										alt="" th:src="*{'data:image/jpeg;base64,'+ photoPath}">-->
+<!--									</span>-->
 									<div class="media-body  ml-2  d-none d-lg-block">
 										<span class="mb-0 text-sm  font-weight-bold"
 											th:text="${#authentication.getPrincipal().getUsername()}"></span>

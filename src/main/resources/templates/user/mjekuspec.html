@@ -40,9 +40,9 @@
 			<section id="doctors" class="doctors">
 				<div class="container" id="spec-container" th:object="${mjekuSpec}">
 					<div class="d-flex justify-content-center">
-						<div id="docSpec" class="text-center col-md-4" th:object="${mjekuSpec}">					
-							<img th:src="'data:image/jpeg;base64,' + ${mjekuSpec.getUsersDetail().photoPath}" class="img-thumbnail rounded mx-auto d-block" alt="Responsive image"/>
-						</div>
+<!--						<div id="docSpec" class="text-center col-md-4" th:object="${mjekuSpec}">					-->
+<!--							<img th:src="'data:image/jpeg;base64,' + ${mjekuSpec.getUsersDetail().photoPath}" class="img-thumbnail rounded mx-auto d-block" alt="Responsive image"/>-->
+<!--						</div>-->
 						<div class="text-center col-md-4" th:object="${mjekuSpec}">
 							<h1 th:text="Dr. + *{firstName} + ' ' + *{lastName} "></h1>
 							<p>Kardiologe &#9642; Female &#9642; 18</p>

@@ -1,12 +1,9 @@
 package com.temadiplomes.doctorfinder.security;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
-import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,9 +20,7 @@ import org.springframework.stereotype.Service;
 import com.temadiplomes.doctorfinder.dao.AuthoritiesRepository;
 import com.temadiplomes.doctorfinder.dao.UsersRepository;
 import com.temadiplomes.doctorfinder.entity.Authorities;
-import com.temadiplomes.doctorfinder.entity.SpecialitiesCategory;
 import com.temadiplomes.doctorfinder.entity.Users;
-import com.temadiplomes.doctorfinder.entity.UsersDetail;
 
 import enums.Status;
 
@@ -177,21 +172,10 @@ public class UsersServiceImpl implements CustomUserService {
 	}
 
 	@Override
-	public void addUserDetails(UsersDetail userDetail) {
-		
-		
+	public List<Users> findTop4Doctors(Pageable pageable) {
+		return null;
 	}
 
-	@Override
-	public List<Users> findTop4Doctors(Pageable pageable) {
-		
-		return userRepository.findTop4Doctors(pageable);
-	}
-	
-	@Override
-	public List<Users> findBySpecCategory(SpecialitiesCategory specCategory){
-		return userRepository.findBySpecCategory(specCategory);
-	}
 
 	@Override
 	public List<Users> findByAuthorities(Authorities auth) {
